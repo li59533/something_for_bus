@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\Projects\stm32f10x_std\IAR\stm32f10x_std.ewp</path>
+  </project>
+  <batchBuild/>
+</workspace>
+
+
