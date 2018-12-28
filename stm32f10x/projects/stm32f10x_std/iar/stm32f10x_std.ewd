@@ -3011,11 +3011,11 @@
         </option>
         <option>
           <name>MemOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>MemFile</name>
-          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F103xE.ddf</state>
+          <state>$TOOLKIT_DIR$\CONFIG\debugger\ST\STM32F103xC.ddf</state>
         </option>
         <option>
           <name>RunToEnable</name>
@@ -3055,7 +3055,7 @@
         </option>
         <option>
           <name>OCDynDriverList</name>
-          <state>JLINK_ID</state>
+          <state>STLINK_ID</state>
         </option>
         <option>
           <name>OCLastSavedByProductVersion</name>
@@ -3087,7 +3087,7 @@
         </option>
         <option>
           <name>FlashLoadersV3</name>
-          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F10xxE.board</state>
+          <state>$TOOLKIT_DIR$\config\flashloader\ST\FlashSTM32F10xxC.board</state>
         </option>
         <option>
           <name>OCImagesSuppressCheck1</name>

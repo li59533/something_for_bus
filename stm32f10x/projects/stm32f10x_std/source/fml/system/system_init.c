@@ -16,6 +16,7 @@
 #include "system_info.h"
 #include "system_param.h"
 #include "system_init.h"
+#include "fml_init.h"
 
 /**
  * @addtogroup    XXX 
@@ -107,7 +108,7 @@
 void System_Load()
 {
     BSP_Init();
-    
+    Fml_Init();
     /* init param module,read and apply params */
     
     SystemParam_Init();

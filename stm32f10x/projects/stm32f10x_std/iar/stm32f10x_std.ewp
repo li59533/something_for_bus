@@ -2395,6 +2395,11 @@
           <state>$PROJ_DIR$\..\source\fml\clock</state>
           <state>$PROJ_DIR$\..\source\fml\hj212</state>
           <state>$PROJ_DIR$\..\source\fml\historydata</state>
+          <state>$PROJ_DIR$\..\source\fml\gprs\port</state>
+          <state>$PROJ_DIR$\..\source\fml\gprs</state>
+          <state>$PROJ_DIR$\..\source\fml</state>
+          <state>$PROJ_DIR$\..\source\application\gprs_task</state>
+          <state>$PROJ_DIR$\..\source\fml\gprs\src</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -2686,11 +2691,11 @@
         </option>
         <option>
           <name>OCOutputOverride</name>
-          <state>1</state>
+          <state>0</state>
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>ZSCA-1A01-S5_MainBoard_Vx.x.x_Full_V.hex</state>
+          <state>stm32f10x_std.hex</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -2698,7 +2703,7 @@
         </option>
         <option>
           <name>OOCObjCopyEnable</name>
-          <state>1</state>
+          <state>0</state>
         </option>
       </data>
     </settings>
@@ -2809,7 +2814,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>$TOOLKIT_DIR$\config\linker\ST\stm32f103xE.icf</state>
+          <state>$TOOLKIT_DIR$\config\linker\ST\stm32f103xC.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -3044,6 +3049,12 @@
   <group>
     <name>application</name>
     <group>
+      <name>gprs_task</name>
+      <file>
+        <name>$PROJ_DIR$\..\source\application\gprs_task\gprs_task.c</name>
+      </file>
+    </group>
+    <group>
       <name>hal_task</name>
       <file>
         <name>$PROJ_DIR$\..\source\application\hal_task\hal_task.c</name>
@@ -3142,6 +3153,21 @@
       </file>
     </group>
     <group>
+      <name>gprs</name>
+      <group>
+        <name>port</name>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\gprs\port\gprs_port.c</name>
+        </file>
+      </group>
+      <group>
+        <name>src</name>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_module_power.c</name>
+        </file>
+      </group>
+    </group>
+    <group>
       <name>system</name>
       <file>
         <name>$PROJ_DIR$\..\source\fml\system\system_info.c</name>
@@ -3162,6 +3188,9 @@
         <name>$PROJ_DIR$\..\source\fml\system\system_param.h</name>
       </file>
     </group>
+    <file>
+      <name>$PROJ_DIR$\..\source\fml\fml_init.c</name>
+    </file>
   </group>
   <group>
     <name>mdl</name>
@@ -3198,7 +3227,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\clog\clog.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\components\MDL\clog\clog.h</name>
+        <name>$PROJ_DIR$\..\..\..\Components\MDL\clog\clog.h</name>
       </file>
     </group>
     <group>
@@ -3207,7 +3236,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Components\MDL\cshell\cshell.h</name>
+        <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.c</name>
@@ -3233,10 +3262,10 @@
       <group>
         <name>src</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\components\MDL\osal\src\osal.h</name>
+          <name>$PROJ_DIR$\..\..\..\Components\MDL\osal\src\osal.h</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\components\MDL\osal\src\osal_cfg.h</name>
+          <name>$PROJ_DIR$\..\..\..\Components\MDL\osal\src\osal_cfg.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\components\MDL\osal\src\osal_clock.c</name>

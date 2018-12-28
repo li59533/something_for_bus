@@ -27,6 +27,7 @@
 #include "stm32f10x_it.h"
 #include "osal.h"
 #include "clog.h"
+#include "gprs_port.h"
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -180,7 +181,7 @@ void DMA1_Channel3_IRQHandler(void)
 
 void DMA1_Channel4_IRQHandler(void)
 {
-
+    Gprs_DMA_IRQ();
 }
 
 void DMA1_Channel5_IRQHandler(void)
@@ -195,7 +196,7 @@ void DMA1_Channel7_IRQHandler(void)
 
 void USART1_IRQHandler(void)
 {
-
+    Gprs_Uart_IDLE_IRQ();
 }
 
 void USART2_IRQHandler(void)

@@ -15,9 +15,9 @@
 #include "osal_cfg.h"
 #include "osal_core.h"
 #include "hal_task.h"
-
 #include "user_task.h"
 #include "osal_task.h"
+#include "gprs_task.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -66,8 +66,8 @@
 const pTaskEventHandlerFn g_TasksFnArr[OSAL_TASK_COUNT] =
 {
     HalTask_Process,
-
     UserTask_Process,
+    GprsTask_Process,
 };
 
 uint32_t g_TasksEvents[OSAL_TASK_COUNT];
@@ -115,6 +115,7 @@ void OS_Task_Init(void)
     uint8_t task_id = 0;
     HalTask_Init(task_id++);
     UserTask_Init(task_id++);
+    GprsTask_Init(task_id++);
 }   
 
 /**

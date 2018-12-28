@@ -544,6 +544,10 @@
         </Folder>
         <Folder Name="../source">
             <Folder Name="application">
+                <Folder Name="gprs_task">
+                    <F N="../source/application/gprs_task/gprs_task.c"/>
+                    <F N="../source/application/gprs_task/gprs_task.h"/>
+                </Folder>
                 <Folder Name="hal_task">
                     <F N="../source/application/hal_task/hal_task.c"/>
                     <F N="../source/application/hal_task/hal_task.h"/>
@@ -568,6 +572,22 @@
                     <F N="../source/fml/clock/clock.c"/>
                     <F N="../source/fml/clock/clock.h"/>
                 </Folder>
+                <Folder Name="gprs">
+                    <Folder Name="port">
+                        <F N="../source/fml/gprs/port/gprs_port.c"/>
+                        <F N="../source/fml/gprs/port/gprs_port.h"/>
+                    </Folder>
+                    <Folder Name="src">
+                        <F N="../source/fml/gprs/src/gprs_module_power.c"/>
+                        <F N="../source/fml/gprs/src/gprs_module_power.h"/>
+                        <F N="../source/fml/gprs/src/gprs_parameter.c"/>
+                        <F N="../source/fml/gprs/src/gprs_parameter.h"/>
+                        <F N="../source/fml/gprs/src/gprs_queue.c"/>
+                        <F N="../source/fml/gprs/src/gprs_queue.h"/>
+                    </Folder>
+                    <F N="../source/fml/gprs/gprs_mc20.c"/>
+                    <F N="../source/fml/gprs/gprs_mc20.h"/>
+                </Folder>
                 <Folder Name="system">
                     <F N="../source/fml/system/system_info.c"/>
                     <F N="../source/fml/system/system_info.h"/>
@@ -576,6 +596,8 @@
                     <F N="../source/fml/system/system_param.c"/>
                     <F N="../source/fml/system/system_param.h"/>
                 </Folder>
+                <F N="../source/fml/fml_init.c"/>
+                <F N="../source/fml/fml_init.h"/>
             </Folder>
         </Folder>
     </Files>

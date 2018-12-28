@@ -16,6 +16,7 @@
 #include "bsp_init.h"
 #include "system_init.h"
 #include "main.h"
+
 /**
  * @addtogroup    XXX 
  * @{  
@@ -97,7 +98,7 @@
  */
 
 /**
- * @defgroup      main_Functions 
+ * @defgroup      main_Functions gprs_cmd_len
  * @brief         
  * @{  
  */

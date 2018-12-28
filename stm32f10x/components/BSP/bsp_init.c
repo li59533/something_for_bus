@@ -116,7 +116,7 @@ void BSP_Init(void)
    
    // CLog_Init(CLogAppender_Serial);
    // CLog_Init(CLogAppender_RTT);
-    INFO("start\r\n");
+   // INFO("start\r\n");
 }
 /**
  * @}
