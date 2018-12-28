@@ -65,6 +65,9 @@ typedef struct
     uint8_t Size;
     uint8_t Count;
 }GPRSMsgQueue_t;
+
+
+
 /**
  * @}
  */
@@ -74,37 +77,7 @@ typedef struct
  * @brief         
  * @{  
  */
-GPRSPacket_t s_GPRSRecvPacketBuf[8];
 
-GPRSMsgQueue_t s_GPRSRecvPacketQueue=
-{
-    .pData = s_GPRSRecvPacketBuf,
-    .In = 0,
-    .Out = 0,
-    .Count = 0,
-    .Size = sizeof(s_GPRSRecvPacketBuf)/sizeof(s_GPRSRecvPacketBuf[0]),
-
-};
-
-GPRSPacket_t s_GPRSSendPacketBuf[8];
-GPRSPacketQueue_t s_GPRSSendPacketQueue = 
-{
-    .pData = s_GPRSSendPacketBuf,
-    .In = 0,
-    .Out = 0,
-    .Count = 0,
-    .Size = sizeof(s_GPRSSendPacketBuf)/sizeof(s_GPRSSendPacketBuf[0]),
-};
-
-GPRSMsg_t s_GPRSMsgBuf[10];
-GPRSMsgQueue_t s_GPRSMsgQueue = 
-{
-    .pData = s_GPRSMsgBuf,
-    .In = 0,
-    .Out = 0,
-    .Count = 0,
-    .Size = sizeof(s_GPRSMsgBuf)/sizeof(s_GPRSMsgBuf[0]),
-};
 
 /**
  * @}
@@ -115,7 +88,13 @@ GPRSMsgQueue_t s_GPRSMsgQueue =
  * @brief         
  * @{  
  */
-
+Gprs_AT_Queue_t g_Gprs_AT_Queue=
+{
+    .Count = 0,
+    .In = 0,
+    .Out = 0,
+    .Size = 10,
+};
 /**
  * @}
  */
@@ -135,6 +114,28 @@ GPRSMsgQueue_t s_GPRSMsgQueue =
  * @brief         
  * @{  
  */
+void Gprs_AT_In_Queue(uint8_t gprs_AT_name)
+{
+    g_Gprs_AT_Queue.Name[g_Gprs_AT_Queue.In].AT_Name = gprs_AT_name;
+    g_Gprs_AT_Queue.In ++;
+    g_Gprs_AT_Queue.Count ++;
+    g_Gprs_AT_Queue.In %= g_Gprs_AT_Queue.Size;
+    g_Gprs_AT_Queue.Count %= g_Gprs_AT_Queue.Size;
+}
+
+uint8_t Gprs_AT_Out_Queue(void)
+{
+    uint8_t gprs_AT_out_name = 0;
+    if (g_Gprs_AT_Queue.Count > 0)
+    {
+        gprs_AT_out_name = g_Gprs_AT_Queue.Name[g_Gprs_AT_Queue.Out].AT_Name;
+        g_Gprs_AT_Queue.Out ++ ; 
+        g_Gprs_AT_Queue.Count --;
+    }
+    g_Gprs_AT_Queue.Out %= g_Gprs_AT_Queue.Size ;
+}
+
+
 
 /**
  * @}

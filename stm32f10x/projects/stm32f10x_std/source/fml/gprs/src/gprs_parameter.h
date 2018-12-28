@@ -17,7 +17,7 @@
  * @addtogroup    XXX 
  * @{ 
  */
-
+#include "self_def.h"
 /**
  * @addtogroup    gprs_parameter_Modules 
  * @{  
@@ -27,7 +27,7 @@
  * @defgroup      gprs_parameter_Exported_Macros 
  * @{  
  */
-
+#define GPRS_POWER_PIN_CONTROL_TIME             2 //let the pin low power more than 3second
 /**
  * @}
  */
@@ -45,6 +45,17 @@
  * @defgroup      gprs_parameter_Exported_Types 
  * @{  
  */
+typedef enum
+{ 
+    Gprs_Power_On_Req = 1,
+    Gprs_Power_On_Resp,
+    Gprs_Cmd_AT_Req,
+    Gprs_Cmd_AT_Resp,
+  
+  
+}Gprs_Module_Status_List;
+
+
 
 /**
  * @}
@@ -55,6 +66,9 @@
  * @{  
  */
 
+extern uint8_t Gprs_Module_Status;
+
+extern int8_t g_Gprs_Power_Status;
 /**
  * @}
  */

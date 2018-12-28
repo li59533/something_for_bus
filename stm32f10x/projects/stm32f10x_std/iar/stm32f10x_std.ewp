@@ -3163,9 +3163,21 @@
       <group>
         <name>src</name>
         <file>
+          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_AT.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_module_power.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_parameter.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_queue.c</name>
+        </file>
       </group>
+      <file>
+        <name>$PROJ_DIR$\..\source\fml\gprs\gprs_mc20.c</name>
+      </file>
     </group>
     <group>
       <name>system</name>
@@ -3236,7 +3248,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.h</name>
+        <name>$PROJ_DIR$\..\..\..\Components\MDL\cshell\cshell.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.c</name>

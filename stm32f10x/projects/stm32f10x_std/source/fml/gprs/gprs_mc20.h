@@ -17,7 +17,7 @@
  * @addtogroup    XXX 
  * @{ 
  */
-
+#include "self_def.h"
 /**
  * @addtogroup    gprs_mc20_Modules 
  * @{  
@@ -64,6 +64,8 @@
  * @{  
  */
 void Gprs_Module_Init(void);
+
+int8_t Gprs_Power_Status(void);
 /**
  * @}
  */

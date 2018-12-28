@@ -77,7 +77,10 @@
  * @brief         
  * @{  
  */
+int8_t g_Gprs_Power_Status = 0;
 
+
+uint8_t Gprs_Module_Status = 0;
 /**
  * @}
  */

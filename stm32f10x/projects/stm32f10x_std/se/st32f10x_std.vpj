@@ -578,6 +578,8 @@
                         <F N="../source/fml/gprs/port/gprs_port.h"/>
                     </Folder>
                     <Folder Name="src">
+                        <F N="../source/fml/gprs/src/gprs_AT.c"/>
+                        <F N="../source/fml/gprs/src/gprs_AT.h"/>
                         <F N="../source/fml/gprs/src/gprs_module_power.c"/>
                         <F N="../source/fml/gprs/src/gprs_module_power.h"/>
                         <F N="../source/fml/gprs/src/gprs_parameter.c"/>

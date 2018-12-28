@@ -17,7 +17,7 @@
  * @addtogroup    XXX 
  * @{ 
  */
-
+#include "self_def.h"
 /**
  * @addtogroup    gprs_queue_Modules 
  * @{  
@@ -108,6 +108,22 @@ typedef struct
     uint8_t Size;
     uint8_t Count;
 }GPRSPacketQueue_t;
+
+//--------------------------
+
+typedef struct
+{
+    uint8_t AT_Name;
+}Gprs_AT_Name_t;
+
+typedef struct
+{
+    Gprs_AT_Name_t Name[10];
+    uint8_t In;
+    uint8_t Out;
+    uint8_t Size;
+    uint8_t Count;
+}Gprs_AT_Queue_t;
 /**
  * @}
  */
@@ -120,12 +136,13 @@ typedef struct
 /**
  * @}
  */
-
+extern Gprs_AT_Queue_t g_Gprs_AT_Queue;
 /**
  * @defgroup      gprs_queue_Exported_Functions 
  * @{  
  */
-
+void Gprs_AT_In_Queue(uint8_t gprs_AT_name);
+uint8_t Gprs_AT_Out_Queue(void);
 /**
  * @}
  */
