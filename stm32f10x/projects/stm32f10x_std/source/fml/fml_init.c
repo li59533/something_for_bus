@@ -11,7 +11,7 @@
  **************************************************************************************************
  */
 #include "fml_init.h"
-#include "gprs_port.h"
+#include "mc20_app.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -99,7 +99,7 @@
  */
 void Fml_Init(void)
 {
-    Gprs_Hal_Init();
+    MC20_Module_Init();
 }
 /**
  * @}

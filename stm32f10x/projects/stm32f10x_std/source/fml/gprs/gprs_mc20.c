@@ -154,6 +154,7 @@ void Gprs_Connect_Process(void)
     {
         case Gprs_Connect_AT_Req:
             Gprs_AT_In_Queue(Gprs_CMD_AT);
+
             break;
         case Gprs_Connect_AT_Resp:
             if ()
@@ -438,29 +439,13 @@ void Gprs_Idel_Loop_Process(void)
           break;          
           case Gprs_CMD_QISEND:
         case Gprs_CMD_QISACK:
-          Gprs_CMD_Send(GPRS_CMD_QISACK,sizeof(GPRS_CMD_QISACK));
-          break;          
+        {
+              Gprs_CMD_Send(GPRS_CMD_QISACK,sizeof(GPRS_CMD_QISACK));
+              break;          
+        }
           case Gprs_CMD_QISACK:
 
 
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
     }
 }
 

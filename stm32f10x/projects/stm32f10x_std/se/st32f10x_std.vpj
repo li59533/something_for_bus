@@ -573,13 +573,7 @@
                     <F N="../source/fml/clock/clock.h"/>
                 </Folder>
                 <Folder Name="gprs">
-                    <Folder Name="port">
-                        <F N="../source/fml/gprs/port/gprs_port.c"/>
-                        <F N="../source/fml/gprs/port/gprs_port.h"/>
-                    </Folder>
                     <Folder Name="src">
-                        <F N="../source/fml/gprs/src/gprs_AT.c"/>
-                        <F N="../source/fml/gprs/src/gprs_AT.h"/>
                         <F N="../source/fml/gprs/src/gprs_module_power.c"/>
                         <F N="../source/fml/gprs/src/gprs_module_power.h"/>
                         <F N="../source/fml/gprs/src/gprs_parameter.c"/>
@@ -589,6 +583,22 @@
                     </Folder>
                     <F N="../source/fml/gprs/gprs_mc20.c"/>
                     <F N="../source/fml/gprs/gprs_mc20.h"/>
+                </Folder>
+                <Folder Name="mc20">
+                    <Folder Name="app">
+                        <F N="../source/fml/mc20/app/mc20_app.c"/>
+                        <F N="../source/fml/mc20/app/mc20_app.h"/>
+                    </Folder>
+                    <Folder Name="port">
+                        <F N="../source/fml/mc20/port/mc20_port.c"/>
+                        <F N="../source/fml/mc20/port/mc20_port.h"/>
+                    </Folder>
+                    <Folder Name="src">
+                        <F N="../source/fml/mc20/src/mc20_ATcmd.c"/>
+                        <F N="../source/fml/mc20/src/mc20_ATcmd.h"/>
+                        <F N="../source/fml/mc20/src/mc20_gprs_conf.c"/>
+                        <F N="../source/fml/mc20/src/mc20_gprs_conf.h"/>
+                    </Folder>
                 </Folder>
                 <Folder Name="system">
                     <F N="../source/fml/system/system_info.c"/>
