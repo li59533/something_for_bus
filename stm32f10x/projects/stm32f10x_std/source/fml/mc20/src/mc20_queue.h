@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        gprs_task.h
+ * @file        mc20_queue.h
  * @author
  * @version    v0.1.0
  * @date        
@@ -10,31 +10,21 @@
  *
  **************************************************************************************************
  */
-#ifndef _GPRS_TASK_H_
-#define _GPRS_TASK_H_
+#ifndef _MC20_QUEUE_H_
+#define _MC20_QUEUE_H_
 
 /**
  * @addtogroup    XXX 
  * @{ 
  */
-#include "osal.h"
+
 /**
- * @addtogroup    gprs_task_Modules 
+ * @addtogroup    mc20_queue_Modules 
  * @{  
  */
 
 /**
- * @defgroup      gprs_task_Exported_Macros 
- * @{  
- */
-#define GPRS_TASK_TEST_EVENT         0x0001
-#define GPRS_TASK_TEST2_EVENT        0x0002
-/**
- * @}
- */
-
-/**
- * @defgroup      gprs_task_Exported_Constants
+ * @defgroup      mc20_queue_Exported_Macros 
  * @{  
  */
 
@@ -43,7 +33,7 @@
  */
 
 /**
- * @defgroup      gprs_task_Exported_Types 
+ * @defgroup      mc20_queue_Exported_Constants
  * @{  
  */
 
@@ -52,23 +42,35 @@
  */
 
 /**
- * @defgroup      gprs_task_Exported_Variables 
+ * @defgroup      mc20_queue_Exported_Types 
  * @{  
  */
-extern uint8_t g_GprsTask_Id;
+
 /**
  * @}
  */
 
 /**
- * @defgroup      gprs_task_Exported_Functions 
+ * @defgroup      mc20_queue_Exported_Variables 
  * @{  
  */
 
-void GprsTask_Init(uint8_t taskId);
+/**
+ * @}
+ */
 
-osal_event_t GprsTask_Process(uint8_t taskid,osal_event_t events);
-void GprsTask_StartTask(osal_event_t events);
+/**
+ * @defgroup      mc20_queue_Exported_Functions 
+ * @{  
+ */
+void MC20_ATcmd_In_to_Queue(uint8_t AT_id) ;
+
+
+uint8_t MC20_ATcmd_Out_to_Queue(void);
+
+
+uint8_t MC20_ATcmd_Queue_Get_Count(void);
+
 /**
  * @}
  */

@@ -27,7 +27,52 @@
  * @defgroup      mc20_ATcmd_Exported_Macros 
  * @{  
  */
-
+typedef enum
+{
+    MC20_IDLE  =0,
+    MC20_CMD_AT,
+    MC20_CMD_AT_Resp,
+    MC20_CMD_ATE,
+    MC20_CMD_ATE_Resp,
+    MC20_CMD_IPR,
+    MC20_CMD_IPR_Resp,
+    MC20_CMD_CPIN,
+    MC20_CMD_CPIN_Resp,
+    MC20_CMD_CSQ,
+    MC20_CMD_CSQ_Resp,
+    MC20_CMD_CREG,
+    MC20_CMD_CREG_Resp,
+    MC20_CMD_CGREG,
+    MC20_CMD_CGREG_Resp,
+    MC20_CMD_QIFGCNT,
+    MC20_CMD_QIFGCNT_Resp,
+    MC20_CMD_QICSGP,
+    MC20_CMD_QICSGP_Resp,
+    MC20_CMD_QIDEACT,
+    MC20_CMD_QIDEACT_Resp,
+    MC20_CMD_QIMODE,
+    MC20_CMD_QIMODE_Resp,
+    MC20_CMD_QIMUX,
+    MC20_CMD_QIMUX_Resp,
+    MC20_CMD_QIREGAPP,
+    MC20_CMD_QIREGAPP_Resp,
+    MC20_CMD_QIACT,
+    MC20_CMD_QIACT_Resp,
+    MC20_CMD_QILOCIP,
+    MC20_CMD_QILOCIP_Resp,
+    MC20_CMD_QIDNSIP_IP,
+    MC20_CMD_QIDNSIP_IP_Resp,
+    MC20_CMD_QIDNSIP_DOMAIN,
+    MC20_CMD_QIDNSIP_DOMAIN_Resp,
+    MC20_CMD_QIHEAD,
+    MC20_CMD_QIHEAD_Resp,
+    MC20_CMD_QIOPEN,
+    MC20_CMD_QIOPEN_Resp,
+    MC20_CMD_QISEND,
+    MC20_CMD_QISEND_Resp,
+    MC20_CMD_QISACK,
+    MC20_CMD_QISACK_Resp,
+}MC20_ATcmd_enum;
 /**
  * @}
  */
@@ -36,27 +81,27 @@
  * @defgroup      mc20_ATcmd_Exported_Constants
  * @{  
  */
-extern const char GPRS_CMD_AT[];
-extern const char GPRS_CMD_ATE[];
-extern const char GPRS_CMD_IPR[];
-extern const char GPRS_CMD_CPIN[]; // 5s
-extern const char GPRS_CMD_CSQ[]; // 300ms
-extern const char GPRS_CMD_CREG[]; // 300ms
-extern const char GPRS_CMD_CGREG[]; // 300ms
-extern const char GPRS_CMD_QIFGCNT[]; // 300ms
-extern const char GPRS_CMD_QICSGP[]; // 300ms
-extern const char GPRS_CMD_QIDEACT[]; // 40s
-extern const char GPRS_CMD_QIMODE[]; // 300ms
-extern const char GPRS_CMD_QIMUX[]; // 300ms
-extern const char GPRS_CMD_QIREGAPP[]; // 300ms
-extern const char GPRS_CMD_QIACT[]; // 150s
-extern const char GPRS_CMD_QILOCIP[]; // 300ms
-extern const char GPRS_CMD_QIDNSIP_IP[]; // 300ms
-extern const char GPRS_CMD_QIDNSIP_DOMAIN[]; // 300ms
-extern const char GPRS_CMD_QIHEAD[]; // 300ms
-extern const char GPRS_CMD_QIOPEN[]; // 75s
-extern const char GPRS_CMD_QISEND[]; // 300ms
-extern const char GPRS_CMD_QISACK[];
+extern const char MC20_CMD_AT_BUF[];
+extern const char MC20_CMD_ATE_BUF[];
+extern const char MC20_CMD_IPR_BUF[];
+extern const char MC20_CMD_CPIN_BUF[]; // 5s
+extern const char MC20_CMD_CSQ_BUF[]; // 300ms
+extern const char MC20_CMD_CREG_BUF[]; // 300ms
+extern const char MC20_CMD_CGREG_BUF[]; // 300ms
+extern const char MC20_CMD_QIFGCNT_BUF[]; // 300ms
+extern const char MC20_CMD_QICSGP_BUF[]; // 300ms
+extern const char MC20_CMD_QIDEACT_BUF[]; // 40s
+extern const char MC20_CMD_QIMODE_BUF[]; // 300ms
+extern const char MC20_CMD_QIMUX_BUF[]; // 300ms
+extern const char MC20_CMD_QIREGAPP_BUF[]; // 300ms
+extern const char MC20_CMD_QIACT_BUF[]; // 150s
+extern const char MC20_CMD_QILOCIP_BUF[]; // 300ms
+extern const char MC20_CMD_QIDNSIP_IP_BUF[]; // 300ms
+extern const char MC20_CMD_QIDNSIP_DOMAIN_BUF[]; // 300ms
+extern const char MC20_CMD_QIHEAD_BUF[]; // 300ms
+extern const char MC20_CMD_QIOPEN_BUF[]; // 75s
+extern const char MC20_CMD_QISEND_BUF[]; // 300ms
+extern const char MC20_CMD_QISACK_BUF[];
 /**
  * @}
  */
