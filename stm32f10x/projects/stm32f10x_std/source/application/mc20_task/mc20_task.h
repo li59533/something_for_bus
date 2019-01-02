@@ -27,7 +27,16 @@
  * @defgroup      mc20_task_Exported_Macros 
  * @{  
  */
-#define MC20_TASK_REV_EVENT          0x0001
+#define MC20_TASK_REV_EVENT                     0x0001
+#define MC20_TASK_MODULE_RESTART_EVENT          0x0002
+#define MC20_TASK_CORE_LOOP_EVENT               0X0004
+#define MC20_TASK_GPRS_EVENT                    0X0008
+#define MC20_TASK_GPS_EVENT                     0X0010
+#define MC20_TASK_BT_EVENT                      0X0020
+
+
+
+
 /**
  * @}
  */
@@ -69,8 +78,10 @@ osal_event_t MC20Task_Process(uint8_t taskid,osal_event_t events);
 
 void MC20Task_Send_Event(osal_event_t events);
 
-void UserTask_Clear_Event(osal_event_t events);
+void MC20Task_Clear_Event(osal_event_t events);
 
+
+void MC20Task_Timer_Start_Event(osal_event_t events,uint32_t time);
 /**
  * @}
  */

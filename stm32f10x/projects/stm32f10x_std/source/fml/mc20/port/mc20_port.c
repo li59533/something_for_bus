@@ -12,6 +12,7 @@
  */
 #include "mc20_port.h"
 #include "stm32_bsp_conf.h"
+#include "mc20_queue.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -37,7 +38,7 @@
  * @brief         
  * @{  
  */
-#define GPRS_UART_DATA_LEN_MAX     200
+#define GPRS_UART_DATA_LEN_MAX     400
 /**
  * @}
  */
@@ -215,7 +216,10 @@ void MC20_Uart_IDLE_IRQ(void)
     if( USART_GetITStatus(USART1, USART_IT_IDLE)!=RESET)
     {
         USART_ReceiveData( USART1);
-        GprsTask_StartTask(GPRS_TASK_TEST2_EVENT);
+        DMA_Cmd(DMA1_Channel5, DISABLE); 
+        MC20_Msg_In_to_Queue(g_Gprs_R_buf,GPRS_UART_DATA_LEN_MAX - DMA_GetCurrDataCounter(DMA1_Channel5));
+        DMA_SetCurrDataCounter(DMA1_Channel5, GPRS_UART_DATA_LEN_MAX); 
+        DMA_Cmd(DMA1_Channel5, ENABLE); 
     }
 }
 

@@ -106,8 +106,6 @@ void HalTask_Init(uint8_t taskId)
 
 osal_event_t HalTask_Process(uint8_t taskid,osal_event_t events)
 {
-
-
     return 0;
 }
 /**

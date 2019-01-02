@@ -572,18 +572,6 @@
                     <F N="../source/fml/clock/clock.c"/>
                     <F N="../source/fml/clock/clock.h"/>
                 </Folder>
-                <Folder Name="gprs">
-                    <Folder Name="src">
-                        <F N="../source/fml/gprs/src/gprs_module_power.c"/>
-                        <F N="../source/fml/gprs/src/gprs_module_power.h"/>
-                        <F N="../source/fml/gprs/src/gprs_parameter.c"/>
-                        <F N="../source/fml/gprs/src/gprs_parameter.h"/>
-                        <F N="../source/fml/gprs/src/gprs_queue.c"/>
-                        <F N="../source/fml/gprs/src/gprs_queue.h"/>
-                    </Folder>
-                    <F N="../source/fml/gprs/gprs_mc20.c"/>
-                    <F N="../source/fml/gprs/gprs_mc20.h"/>
-                </Folder>
                 <Folder Name="mc20">
                     <Folder Name="app">
                         <F N="../source/fml/mc20/app/mc20_app.c"/>

@@ -163,7 +163,7 @@ void MC20_ATcmd_In_to_Queue(uint8_t AT_id)
     MC20_Queue_Core.Count %= MC20_Queue_Core.Size;
 }
 
-uint8_t MC20_ATcmd_Out_to_Queue(void)
+uint8_t MC20_ATcmd_Out_From_Queue(void)
 {
     uint8_t AT_id = 0;
     if (MC20_Queue_Core.Count > 0)
@@ -182,10 +182,37 @@ uint8_t MC20_ATcmd_Queue_Get_Count(void)
     return MC20_Queue_Core.Count;
 }
 
+
+
+
 void MC20_Msg_In_to_Queue(uint8_t *buf,uint16_t len)
 {
-    memcpy(MC20_Queue_Msg.Msgptr[MC20_Queue_Core.], buf, len);
+    memcpy(MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.In].MsgBuf, buf, len);
+    MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.In].MsgBuf_Len = len;
+    MC20_Queue_Msg.In ++;
+    MC20_Queue_Msg.Count ++;
+    MC20_Queue_Msg.In %= MC20_Queue_Msg.Size;
+    MC20_Queue_Msg.Count %= MC20_Queue_Msg.Size;
+
 }
+
+void MC20_Msg_Out_From_Queue(uint8_t *buf,uint16_t *len)
+{
+    if (MC20_Queue_Msg.Count > 0)
+    {
+        memcpy(buf, MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out].MsgBuf, MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out++].MsgBuf_Len);
+        *len =  MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out].MsgBuf_Len;
+        MC20_Queue_Msg.Count -- ;
+        MC20_Queue_Msg.Out ++;
+        MC20_Queue_Msg.Out %= MC20_Queue_Msg.Size;
+    }
+}
+
+uint8_t MC20_Msg_Queue_Get_Count(void)
+{
+    return MC20_Queue_Msg.Count;
+}
+
 /**
  * @}
  */

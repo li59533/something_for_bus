@@ -58,7 +58,7 @@ const char MC20_CMD_QIFGCNT_BUF[] = {"AT+QIFGCNT=0\r\n"}; // 300ms
 const char MC20_CMD_QICSGP_BUF[] = {"AT+QICSGP=1,\"CMNET\"\r\n"}; // 300ms                                                  
 const char MC20_CMD_QIDEACT_BUF[] = {"AT+QIDEACT\r\n"}; // 40s
 const char MC20_CMD_QIMODE_BUF[] = {"AT+QIMODE=0\r\n"}; // 300ms
-const char MC20_CMD_QIMUX_BUF[] = {"AT+QIMUX=1\r\n"}; // 300ms  
+const char MC20_CMD_QIMUX_BUF[] = {"AT+QIMUX=0\r\n"}; // 300ms  
 const char MC20_CMD_QIREGAPP_BUF[] = {"AT+QIREGAPP\r\n"}; // 300ms
 const char MC20_CMD_QIACT_BUF[] = {"AT+QIACT\r\n"}; // 150s
 const char MC20_CMD_QILOCIP_BUF[] = {"AT+QILOCIP\r\n"}; // 300ms

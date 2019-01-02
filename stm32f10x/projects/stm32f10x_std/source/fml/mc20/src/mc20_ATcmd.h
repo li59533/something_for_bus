@@ -72,6 +72,8 @@ typedef enum
     MC20_CMD_QISEND_Resp,
     MC20_CMD_QISACK,
     MC20_CMD_QISACK_Resp,
+    MC20_CMD_QPOWD,
+    MC20_CMD_QPOWD_Resp,
 }MC20_ATcmd_enum;
 /**
  * @}

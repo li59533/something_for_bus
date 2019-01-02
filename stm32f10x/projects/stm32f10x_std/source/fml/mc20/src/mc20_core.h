@@ -55,6 +55,7 @@
  * @{  
  */
 
+extern MC20_Func_Status_t s_MC20_Func_Status;
 /**
  * @}
  */
@@ -63,7 +64,7 @@
  * @defgroup      mc20_core_Exported_Functions 
  * @{  
  */
-
+void MC20_Core_Loop_process(void);
 /**
  * @}
  */

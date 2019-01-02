@@ -64,6 +64,12 @@
  * @{  
  */
 void MC20_Module_Init(void);
+
+void MC20_Gprs_Start(void);
+
+void MC20_Gprs_Loop_Process(void);
+
+void MC20_Module_Restart(void);
 /**
  * @}
  */
