@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        mc20_app.h
+ * @file        ODB_port_init.h
  * @author
  * @version    v0.1.0
  * @date        
@@ -10,30 +10,21 @@
  *
  **************************************************************************************************
  */
-#ifndef _MC20_APP_H_
-#define _MC20_APP_H_
+#ifndef _ODB_PORT_INIT_H_
+#define _ODB_PORT_INIT_H_
 
 /**
  * @addtogroup    XXX 
  * @{ 
  */
-#include "self_def.h"
+
 /**
- * @addtogroup    mc20_app_Modules 
+ * @addtogroup    ODB_port_init_Modules 
  * @{  
  */
 
 /**
- * @defgroup      mc20_app_Exported_Macros 
- * @{  
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup      mc20_app_Exported_Constants
+ * @defgroup      ODB_port_init_Exported_Macros 
  * @{  
  */
 
@@ -42,7 +33,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Exported_Types 
+ * @defgroup      ODB_port_init_Exported_Constants
  * @{  
  */
 
@@ -51,7 +42,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Exported_Variables 
+ * @defgroup      ODB_port_init_Exported_Types 
  * @{  
  */
 
@@ -60,13 +51,19 @@
  */
 
 /**
- * @defgroup      mc20_app_Exported_Functions 
+ * @defgroup      ODB_port_init_Exported_Variables 
  * @{  
  */
-void MC20_GPRS_Start(void);
-void MC20_GPS_Start(void);
-uint8_t  MC20_GPS_Get_Status(void);
-void MC20_GPS_GetLocation(uint16_t longitude,uint16_t latitude);
+
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      ODB_port_init_Exported_Functions 
+ * @{  
+ */
+
 /**
  * @}
  */

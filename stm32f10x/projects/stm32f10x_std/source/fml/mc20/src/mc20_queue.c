@@ -109,7 +109,7 @@ MC20_Queue_MSG_t MC20_Queue_Msg=
     .Count = 0,
     .In = 0,
     .Out = 0,
-    .Size = (sizeof(Rev)/sizeof(Rev[0]));
+    .Size = (sizeof(Rev)/sizeof(Rev[0])),
 
 };
 MC20_Queue_Core_t MC20_Queue_Core=

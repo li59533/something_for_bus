@@ -552,6 +552,10 @@
                     <F N="../source/application/mc20_task/mc20_task.c"/>
                     <F N="../source/application/mc20_task/mc20_task.h"/>
                 </Folder>
+                <Folder Name="odb_task">
+                    <F N="../source/application/odb_task/ODB_task.c"/>
+                    <F N="../source/application/odb_task/ODB_task.h"/>
+                </Folder>
                 <Folder Name="user_task">
                     <F N="../source/application/user_task/user_task.c"/>
                     <F N="../source/application/user_task/user_task.h"/>
@@ -594,6 +598,14 @@
                         <F N="../source/fml/mc20/src/mc20_queue.h"/>
                     </Folder>
                 </Folder>
+                <Folder Name="ODB">
+                    <Folder Name="port">
+                        <F N="../source/fml/ODB/port/ODB_port_init.c"/>
+                        <F N="../source/fml/ODB/port/ODB_port_init.h"/>
+                    </Folder>
+                    <F N="../source/fml/ODB/ODB_Init.c"/>
+                    <F N="../source/fml/ODB/ODB_Init.h"/>
+                </Folder>
                 <Folder Name="system">
                     <F N="../source/fml/system/system_info.c"/>
                     <F N="../source/fml/system/system_info.h"/>
@@ -606,5 +618,7 @@
                 <F N="../source/fml/fml_init.h"/>
             </Folder>
         </Folder>
+        <F N="ODB_init.c"/>
+        <F N="ODB_init.h"/>
     </Files>
 </Project>

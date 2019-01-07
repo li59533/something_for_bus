@@ -102,37 +102,32 @@ uint8_t g_MC20Task_Id = 0;
 void MC20Task_Init(uint8_t taskId)
 {
     g_MC20Task_Id = taskId;
-    MC20Task_Timer_Start_Event(MC20_TASK_CORE_LOOP_EVENT,20);
+    OS_Events_Set(g_MC20Task_Id,MC20_TASK_CORE_RUN_LOOP);
 }
 
 osal_event_t MC20Task_Process(uint8_t taskid,osal_event_t events)
 {
-    if (events & MC20_TASK_MODULE_RESTART_EVENT) 
+    if (events & MC20_TASK_REV_EVENT) 
     {
-        MC20_Power_Pin_Set();
-        MC20Task_Send_Event(MC20_TASK_GPRS_EVENT);
-        return events ^ MC20_TASK_MODULE_RESTART_EVENT;
-    }
-    if (events & MC20_TASK_CORE_LOOP_EVENT) 
-    {
-        MC20_Core_Loop_process();
-        OS_Timer_Start(taskid,MC20_TASK_CORE_LOOP_EVENT,20);
-        return events ^ MC20_TASK_CORE_LOOP_EVENT;
+        MC20_Core_Rev_Loop_Process();
+        return events ^ MC20_TASK_REV_EVENT;
     }
     if (events & MC20_TASK_GPRS_EVENT) 
     {
-        MC20_Gprs_Loop_Process();
-        OS_Timer_Start(taskid,MC20_TASK_GPRS_EVENT,20);
+        MC20_GPRS_Start_Process();
         return events ^ MC20_TASK_GPRS_EVENT;
     }
     if (events & MC20_TASK_GPS_EVENT) 
-    {        
+    {
+        MC20_GPS_Start_Process();
         return events ^ MC20_TASK_GPS_EVENT;
     }
-    if (events & MC20_TASK_BT_EVENT) 
+    if (events & MC20_TASK_CORE_RUN_LOOP) 
     {
-        return events ^ MC20_TASK_BT_EVENT;
-    }
+        MC20_Core_Run_Process();
+        OS_Timer_Start(taskid,MC20_TASK_CORE_RUN_LOOP,20);
+        return events ^ MC20_TASK_CORE_RUN_LOOP;
+    }    
     return 0;
 }
 

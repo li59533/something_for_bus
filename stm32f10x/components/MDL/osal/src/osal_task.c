@@ -17,7 +17,7 @@
 #include "hal_task.h"
 #include "user_task.h"
 #include "osal_task.h"
-#include "gprs_task.h"
+#include "mc20_task.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -68,6 +68,7 @@ const pTaskEventHandlerFn g_TasksFnArr[OSAL_TASK_COUNT] =
     HalTask_Process,
     UserTask_Process,
     MC20Task_Process,
+    ODBTask_Process,
 };
 
 uint32_t g_TasksEvents[OSAL_TASK_COUNT];
@@ -116,6 +117,7 @@ void OS_Task_Init(void)
     HalTask_Init(task_id++);
     UserTask_Init(task_id++);
     MC20Task_Init(task_id++);
+    ODBTask_Init(task_id++);
 }   
 
 /**

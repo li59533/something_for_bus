@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        fml_init.c
+ * @file        ODB_port_init.c
  * @author
  * @version   v0.1.0
  * @date        
@@ -10,20 +10,20 @@
  *
  **************************************************************************************************
  */
-#include "fml_init.h"
-#include "mc20_app.h"
+#include "ODB_port_init.h"
+
 /**
  * @addtogroup    XXX 
  * @{  
  */
 
 /**
- * @addtogroup    fml_init_Modules 
+ * @addtogroup    ODB_port_init_Modules 
  * @{  
  */
 
 /**
- * @defgroup      fml_init_IO_Defines 
+ * @defgroup      ODB_port_init_IO_Defines 
  * @brief         
  * @{  
  */
@@ -33,7 +33,7 @@
  */
 
 /**
- * @defgroup      fml_init_Macros_Defines 
+ * @defgroup      ODB_port_init_Macros_Defines 
  * @brief         
  * @{  
  */
@@ -43,7 +43,7 @@
  */
 
 /**
- * @defgroup      fml_init_Constants_Defines 
+ * @defgroup      ODB_port_init_Constants_Defines 
  * @brief         
  * @{  
  */
@@ -53,7 +53,7 @@
  */
 
 /**
- * @defgroup      fml_init_Private_Types
+ * @defgroup      ODB_port_init_Private_Types
  * @brief         
  * @{  
  */
@@ -63,7 +63,7 @@
  */
 
 /**
- * @defgroup      fml_init_Private_Variables 
+ * @defgroup      ODB_port_init_Private_Variables 
  * @brief         
  * @{  
  */
@@ -73,7 +73,7 @@
  */
 
 /**
- * @defgroup      fml_init_Public_Variables 
+ * @defgroup      ODB_port_init_Public_Variables 
  * @brief         
  * @{  
  */
@@ -83,7 +83,7 @@
  */
 
 /**
- * @defgroup      fml_init_Private_FunctionPrototypes 
+ * @defgroup      ODB_port_init_Private_FunctionPrototypes 
  * @brief         
  * @{  
  */
@@ -93,14 +93,11 @@
  */
 
 /**
- * @defgroup      fml_init_Functions 
+ * @defgroup      ODB_port_init_Functions 
  * @brief         
  * @{  
  */
-void Fml_Init(void)
-{
- 
-}
+
 /**
  * @}
  */

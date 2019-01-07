@@ -2400,6 +2400,10 @@
           <state>$PROJ_DIR$\..\source\fml</state>
           <state>$PROJ_DIR$\..\source\application\gprs_task</state>
           <state>$PROJ_DIR$\..\source\fml\gprs\src</state>
+          <state>$PROJ_DIR$\..\source\fml\mc20\app</state>
+          <state>$PROJ_DIR$\..\source\fml\mc20\port</state>
+          <state>$PROJ_DIR$\..\source\fml\mc20\src</state>
+          <state>$PROJ_DIR$\..\source\application\mc20_task</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -3049,18 +3053,18 @@
   <group>
     <name>application</name>
     <group>
-      <name>gprs_task</name>
-      <file>
-        <name>$PROJ_DIR$\..\source\application\gprs_task\gprs_task.c</name>
-      </file>
-    </group>
-    <group>
       <name>hal_task</name>
       <file>
         <name>$PROJ_DIR$\..\source\application\hal_task\hal_task.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\source\application\hal_task\hal_task.h</name>
+      </file>
+    </group>
+    <group>
+      <name>mc20_task</name>
+      <file>
+        <name>$PROJ_DIR$\..\source\application\mc20_task\mc20_task.c</name>
       </file>
     </group>
     <group>
@@ -3153,31 +3157,37 @@
       </file>
     </group>
     <group>
-      <name>gprs</name>
+      <name>mc20</name>
+      <group>
+        <name>app</name>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\mc20\app\mc20_app.c</name>
+        </file>
+      </group>
       <group>
         <name>port</name>
         <file>
-          <name>$PROJ_DIR$\..\source\fml\gprs\port\gprs_port.c</name>
+          <name>$PROJ_DIR$\..\source\fml\mc20\port\mc20_port.c</name>
         </file>
       </group>
       <group>
         <name>src</name>
         <file>
-          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_AT.c</name>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_ATcmd.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_module_power.c</name>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_conf.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_parameter.c</name>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_core.c</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\source\fml\gprs\src\gprs_queue.c</name>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_gprs_conf.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_queue.c</name>
         </file>
       </group>
-      <file>
-        <name>$PROJ_DIR$\..\source\fml\gprs\gprs_mc20.c</name>
-      </file>
     </group>
     <group>
       <name>system</name>
@@ -3248,7 +3258,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Components\MDL\cshell\cshell.h</name>
+        <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.c</name>

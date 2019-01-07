@@ -13,6 +13,7 @@
 #include "mc20_port.h"
 #include "stm32_bsp_conf.h"
 #include "mc20_queue.h"
+#include "mc20_task.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -218,6 +219,7 @@ void MC20_Uart_IDLE_IRQ(void)
         USART_ReceiveData( USART1);
         DMA_Cmd(DMA1_Channel5, DISABLE); 
         MC20_Msg_In_to_Queue(g_Gprs_R_buf,GPRS_UART_DATA_LEN_MAX - DMA_GetCurrDataCounter(DMA1_Channel5));
+        MC20Task_Send_Event(MC20_TASK_REV_EVENT);
         DMA_SetCurrDataCounter(DMA1_Channel5, GPRS_UART_DATA_LEN_MAX); 
         DMA_Cmd(DMA1_Channel5, ENABLE); 
     }

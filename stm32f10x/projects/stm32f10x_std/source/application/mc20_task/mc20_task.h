@@ -18,6 +18,7 @@
  * @{ 
  */
 #include "self_def.h"
+#include "osal.h"
 /**
  * @addtogroup    mc20_task_Modules 
  * @{  
@@ -33,6 +34,7 @@
 #define MC20_TASK_GPRS_EVENT                    0X0008
 #define MC20_TASK_GPS_EVENT                     0X0010
 #define MC20_TASK_BT_EVENT                      0X0020
+#define MC20_TASK_CORE_RUN_LOOP                 0x0040
 
 
 
@@ -82,6 +84,9 @@ void MC20Task_Clear_Event(osal_event_t events);
 
 
 void MC20Task_Timer_Start_Event(osal_event_t events,uint32_t time);
+
+
+
 /**
  * @}
  */
