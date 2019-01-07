@@ -2248,7 +2248,7 @@
         </option>
         <option>
           <name>CCDiagSuppress</name>
-          <state></state>
+          <state>pa050</state>
         </option>
         <option>
           <name>CCDiagRemark</name>
@@ -2404,6 +2404,7 @@
           <state>$PROJ_DIR$\..\source\fml\mc20\port</state>
           <state>$PROJ_DIR$\..\source\fml\mc20\src</state>
           <state>$PROJ_DIR$\..\source\application\mc20_task</state>
+          <state>$PROJ_DIR$\..\source\application\odb_task</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -3068,6 +3069,12 @@
       </file>
     </group>
     <group>
+      <name>obd_task</name>
+      <file>
+        <name>$PROJ_DIR$\..\source\application\odb_task\ODB_task.c</name>
+      </file>
+    </group>
+    <group>
       <name>user_task</name>
       <file>
         <name>$PROJ_DIR$\..\source\application\user_task\user_task.c</name>
@@ -3096,12 +3103,18 @@
       <group>
         <name>src</name>
         <file>
+          <name>$PROJ_DIR$\..\..\..\components\BSP\stm32f10x_bsp\src\stm32f10x_bsp_flash.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\..\..\components\BSP\stm32f10x_bsp\src\stm32f10x_bsp_systick.c</name>
         </file>
       </group>
     </group>
     <file>
       <name>$PROJ_DIR$\..\..\..\components\BSP\bsp_init.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\components\BSP\bsp_led.c</name>
     </file>
   </group>
   <group>
@@ -3249,7 +3262,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\clog\clog.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Components\MDL\clog\clog.h</name>
+        <name>$PROJ_DIR$\..\..\..\components\MDL\clog\clog.h</name>
       </file>
     </group>
     <group>
@@ -3258,13 +3271,13 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.h</name>
+        <name>$PROJ_DIR$\..\..\..\Components\MDL\cshell\cshell.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.h</name>
+        <name>$PROJ_DIR$\..\..\..\Components\MDL\cshell\cshell_port.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_user.c</name>

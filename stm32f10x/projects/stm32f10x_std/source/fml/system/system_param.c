@@ -110,7 +110,7 @@ int16_t SystemParam_Init(void)
 
 int16_t SystemParam_Read(void)
 {
-    //BSP_FLASH_ReadBytes(FLASH_PARAM_START_ADDR,(uint8_t*)&g_SystemParam_Config,sizeof(g_SystemParam_Config));
+    BSP_FLASH_ReadBytes(FLASH_PARAM_START_ADDR,(uint8_t*)&g_SystemParam_Config,sizeof(g_SystemParam_Config));
     if (CRC16_Modbus((uint8_t*)&g_SystemParam_Config,sizeof(g_SystemParam_Config)) == 0)
     {
     }

@@ -108,16 +108,19 @@ void OBD_Start_Get_Mileage(void)
 }
 void OBD_Start_Get_Speed(void)
 {
-;
+    ;
 }
 uint16_t OBD_Get_Mileage(void)
 {
-;
+    ;
 }
 uint16_t OBD_Get_Speed(void)
 {
-;
+    ;
 }
+
+
+
 /**
  * @}
  */

@@ -90,7 +90,7 @@ uint8_t g_Gprs_R_buf[GPRS_UART_DATA_LEN_MAX];
  * @brief         
  * @{  
  */
-static void mc20_uart_init(uint16_t band,uint8_t uartnum);
+static void mc20_uart_init(uint32_t band,uint8_t uartnum);
 static void mc20_power_pin_hal_init(void);
 /**
  * @}
@@ -107,7 +107,7 @@ void MC20_Hal_Init(void)
     mc20_power_pin_hal_init();
 }
 
-static void mc20_uart_init(uint16_t band,uint8_t uartnum)
+static void mc20_uart_init(uint32_t band,uint8_t uartnum)
 {
     USART_InitTypeDef USART_InitStruct;
     NVIC_InitTypeDef  NVIC_InitStruct;

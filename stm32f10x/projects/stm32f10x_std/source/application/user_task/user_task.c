@@ -18,6 +18,7 @@
 #include "clock.h"
 #include "system_info.h"
 #include "user_task.h"
+#include "application.h"
 
 /**
  * @addtogroup    XXX 
@@ -107,7 +108,7 @@ uint8_t g_UserTask_Id = 0;
 void UserTask_Init(uint8_t taskId)
 {
     g_UserTask_Id = taskId;
-
+    App_Open_Func();
 }
 
 osal_event_t UserTask_Process(uint8_t taskid,osal_event_t events)
@@ -116,6 +117,12 @@ osal_event_t UserTask_Process(uint8_t taskid,osal_event_t events)
     {
         NVIC_SystemReset();
         return events ^ USER_TASK_SYSTEMRESET_EVENT;
+    }
+    
+    if (events & USER_TASK_SCAN_STATUS_LOOP_EVENT)
+    {
+        App_Scan_Status_Loop();
+        return events ^ USER_TASK_SCAN_STATUS_LOOP_EVENT;
     }
     return 0;
 }

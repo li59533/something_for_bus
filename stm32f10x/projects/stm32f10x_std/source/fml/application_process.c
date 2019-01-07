@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        ODB_task.c
+ * @file        application_process.c
  * @author
  * @version   v0.1.0
  * @date        
@@ -10,20 +10,20 @@
  *
  **************************************************************************************************
  */
-#include "ODB_task.h"
-#include "osal.h"
+#include "application_process.h"
+
 /**
  * @addtogroup    XXX 
  * @{  
  */
 
 /**
- * @addtogroup    ODB_task_Modules 
+ * @addtogroup    application_process_Modules 
  * @{  
  */
 
 /**
- * @defgroup      ODB_task_IO_Defines 
+ * @defgroup      application_process_IO_Defines 
  * @brief         
  * @{  
  */
@@ -33,7 +33,7 @@
  */
 
 /**
- * @defgroup      ODB_task_Macros_Defines 
+ * @defgroup      application_process_Macros_Defines 
  * @brief         
  * @{  
  */
@@ -43,7 +43,7 @@
  */
 
 /**
- * @defgroup      ODB_task_Constants_Defines 
+ * @defgroup      application_process_Constants_Defines 
  * @brief         
  * @{  
  */
@@ -53,7 +53,7 @@
  */
 
 /**
- * @defgroup      ODB_task_Private_Types
+ * @defgroup      application_process_Private_Types
  * @brief         
  * @{  
  */
@@ -63,7 +63,7 @@
  */
 
 /**
- * @defgroup      ODB_task_Private_Variables 
+ * @defgroup      application_process_Private_Variables 
  * @brief         
  * @{  
  */
@@ -73,17 +73,7 @@
  */
 
 /**
- * @defgroup      ODB_task_Public_Variables 
- * @brief         
- * @{  
- */
-uint8_t g_ODBTask_Id = 0;
-/**
- * @}
- */
-
-/**
- * @defgroup      ODB_task_Private_FunctionPrototypes 
+ * @defgroup      application_process_Public_Variables 
  * @brief         
  * @{  
  */
@@ -93,35 +83,27 @@ uint8_t g_ODBTask_Id = 0;
  */
 
 /**
- * @defgroup      ODB_task_Functions 
+ * @defgroup      application_process_Private_FunctionPrototypes 
  * @brief         
  * @{  
  */
-void ODBTask_Init(uint8_t taskId)
+
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      application_process_Functions 
+ * @brief         
+ * @{  
+ */
+void App_Open_Func(void)
 {
-    g_ODBTask_Id = taskId;
+;
 }
-
-osal_event_t ODBTask_Process(uint8_t taskid,osal_event_t events)
+void App_Scan_Status_Loop(void)
 {
-
-    return 0;
-}
-
-void ODBTask_Send_Event(osal_event_t events)
-{
-    OS_Events_Set(g_ODBTask_Id,events);
-}
-
-
-void ODBTask_Timer_Start_Event(osal_event_t events,uint32_t time)
-{
-    OS_Timer_Start(g_ODBTask_Id,events,time);
-}
-
-void ODBTask_Clear_Event(osal_event_t events)
-{
-    OS_Events_Clear(g_ODBTask_Id,events);
+;
 }
 /**
  * @}

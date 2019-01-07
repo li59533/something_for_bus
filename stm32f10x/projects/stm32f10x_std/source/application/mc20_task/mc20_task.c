@@ -136,13 +136,10 @@ void MC20Task_Send_Event(osal_event_t events)
     OS_Events_Set(g_MC20Task_Id,events);
 }
 
-
 void MC20Task_Timer_Start_Event(osal_event_t events,uint32_t time)
 {
     OS_Timer_Start(g_MC20Task_Id,events,time);
 }
-
-
 
 void MC20Task_Clear_Event(osal_event_t events)
 {

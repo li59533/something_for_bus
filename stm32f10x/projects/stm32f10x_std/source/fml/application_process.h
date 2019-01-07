@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        hal_task.h
+ * @file        application_process.h
  * @author
  * @version    v0.1.0
  * @date        
@@ -10,8 +10,8 @@
  *
  **************************************************************************************************
  */
-#ifndef _HAL_TASK_H_
-#define _HAL_TASK_H_
+#ifndef _APPLICATION_PROCESS_H_
+#define _APPLICATION_PROCESS_H_
 
 /**
  * @addtogroup    XXX 
@@ -19,27 +19,12 @@
  */
 
 /**
- * @addtogroup    hal_task_Modules 
+ * @addtogroup    application_process_Modules 
  * @{  
  */
 
 /**
- * @defgroup      hal_task_Exported_Macros 
- * @{  
- */
-#define HAL_TASK_LED_TOGGLE_EVENT                   0x0001
-#define HAL_TASK_LED_BLINK_EVENT                    0x0002
-
-
-
-
-
-/**
- * @}
- */
-
-/**
- * @defgroup      hal_task_Exported_Constants
+ * @defgroup      application_process_Exported_Macros 
  * @{  
  */
 
@@ -48,7 +33,7 @@
  */
 
 /**
- * @defgroup      hal_task_Exported_Types 
+ * @defgroup      application_process_Exported_Constants
  * @{  
  */
 
@@ -57,20 +42,29 @@
  */
 
 /**
- * @defgroup      hal_task_Exported_Variables 
+ * @defgroup      application_process_Exported_Types 
  * @{  
  */
-extern uint8_t g_HalTask_Id;
+
 /**
  * @}
  */
 
 /**
- * @defgroup      hal_task_Exported_Functions 
+ * @defgroup      application_process_Exported_Variables 
  * @{  
  */
-void HalTask_Init(uint8_t taskId);
-osal_event_t HalTask_Process(uint8_t taskid,osal_event_t events);
+
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      application_process_Exported_Functions 
+ * @{  
+ */
+void App_Open_Func(void);
+void App_Scan_Status_Loop(void);
 /**
  * @}
  */

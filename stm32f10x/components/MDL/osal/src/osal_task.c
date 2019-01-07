@@ -18,6 +18,7 @@
 #include "user_task.h"
 #include "osal_task.h"
 #include "mc20_task.h"
+#include "odb_task.h"
 /**
  * @addtogroup    XXX 
  * @{  

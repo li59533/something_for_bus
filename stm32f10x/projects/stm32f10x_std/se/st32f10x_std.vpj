@@ -154,14 +154,19 @@
                 <Folder Name="stm32f10x_bsp">
                     <Folder Name="inc">
                         <F N="../../../components/BSP/stm32f10x_bsp/inc/stm32_bsp_conf.h"/>
+                        <F N="../../../components/BSP/stm32f10x_bsp/inc/stm32f10x_bsp_conf.h"/>
+                        <F N="../../../components/BSP/stm32f10x_bsp/inc/stm32f10x_bsp_flash.h"/>
                         <F N="../../../components/BSP/stm32f10x_bsp/inc/stm32f10x_bsp_systick.h"/>
                     </Folder>
                     <Folder Name="src">
+                        <F N="../../../components/BSP/stm32f10x_bsp/src/stm32f10x_bsp_flash.c"/>
                         <F N="../../../components/BSP/stm32f10x_bsp/src/stm32f10x_bsp_systick.c"/>
                     </Folder>
                 </Folder>
                 <F N="../../../components/BSP/bsp_init.c"/>
                 <F N="../../../components/BSP/bsp_init.h"/>
+                <F N="../../../components/BSP/bsp_led.c"/>
+                <F N="../../../components/BSP/bsp_led.h"/>
             </Folder>
             <Folder Name="MDL">
                 <Folder Name="clog">
@@ -576,6 +581,10 @@
                     <F N="../source/fml/clock/clock.c"/>
                     <F N="../source/fml/clock/clock.h"/>
                 </Folder>
+                <Folder Name="led">
+                    <F N="../source/fml/led/led.c"/>
+                    <F N="../source/fml/led/led.h"/>
+                </Folder>
                 <Folder Name="mc20">
                     <Folder Name="app">
                         <F N="../source/fml/mc20/app/mc20_app.c"/>
@@ -614,6 +623,8 @@
                     <F N="../source/fml/system/system_param.c"/>
                     <F N="../source/fml/system/system_param.h"/>
                 </Folder>
+                <F N="../source/fml/application_process.c"/>
+                <F N="../source/fml/application_process.h"/>
                 <F N="../source/fml/fml_init.c"/>
                 <F N="../source/fml/fml_init.h"/>
             </Folder>

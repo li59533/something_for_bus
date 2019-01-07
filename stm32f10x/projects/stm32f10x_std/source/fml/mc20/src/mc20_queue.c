@@ -200,7 +200,7 @@ void MC20_Msg_Out_From_Queue(uint8_t *buf,uint16_t *len)
 {
     if (MC20_Queue_Msg.Count > 0)
     {
-        memcpy(buf, MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out].MsgBuf, MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out++].MsgBuf_Len);
+        memcpy(buf, MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out].MsgBuf, MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out].MsgBuf_Len);
         *len =  MC20_Queue_Msg.Msgptr[MC20_Queue_Msg.Out].MsgBuf_Len;
         MC20_Queue_Msg.Count -- ;
         MC20_Queue_Msg.Out ++;
