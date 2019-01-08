@@ -49,7 +49,7 @@
  */
 const char MC20_CMD_AT_BUF[] = {"AT\r\n"};
 const char MC20_CMD_ATE_BUF[] = {"ATE0\r\n"};
-const char MC20_CMD_IPR_BUF[] = {"AT+IPR=115200&W\r\n"};
+const char MC20_CMD_IPR_BUF[] = {"AT+IPR=9600&W\r\n"};
 const char MC20_CMD_CPIN_BUF[] = {"AT+CPIN?\r\n"}; // 5s
 const char MC20_CMD_CSQ_BUF[] = {"AT+CSQ\r\n"}; // 300ms
 const char MC20_CMD_CREG_BUF[] = {"AT+CREG?\r\n"}; // 300ms
@@ -65,9 +65,10 @@ const char MC20_CMD_QILOCIP_BUF[] = {"AT+QILOCIP\r\n"}; // 300ms
 const char MC20_CMD_QIDNSIP_IP_BUF[] = {"AT+QIDNSIP=0\r\n"}; // ,300ms
 const char MC20_CMD_QIDNSIP_DOMAIN_BUF[] = {"AT+QIDNSIP=1\r\n"}; // ,300ms
 const char MC20_CMD_QIHEAD_BUF[] = {"AT+QIHEAD=0\r\n"}; // ,300ms
-const char MC20_CMD_QIOPEN_BUF[] = {"AT+QIOPEN=\"TCP\",\"132.232.103.18\",\"20000\"\r\n"}; // 75ms
+const char MC20_CMD_QIOPEN_BUF[] = {"AT+QIOPEN=\"TCP\",\"139.199.153.158\",\"36528\"\r\n"}; // 75ms
 const char MC20_CMD_QISEND_BUF[] = {"AT+QISEND=1\r\n"}; // 300ms
 const char MC20_CMD_QISACK_BUF[] = {"AT+QISACK\r\n"};
+const char MC20_CMD_QPOWD_BUF[] = {"AT+QPOWD=1\r\n"};
 /**
  * @}
  */

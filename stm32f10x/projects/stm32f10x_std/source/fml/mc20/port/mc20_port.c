@@ -14,6 +14,7 @@
 #include "stm32_bsp_conf.h"
 #include "mc20_queue.h"
 #include "mc20_task.h"
+#include "mc20_queue_process.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -103,7 +104,7 @@ static void mc20_power_pin_hal_init(void);
  */
 void MC20_Hal_Init(void)
 {
-    mc20_uart_init(115200,1);
+    mc20_uart_init(9600,1);
     mc20_power_pin_hal_init();
 }
 
@@ -216,10 +217,9 @@ void MC20_Uart_IDLE_IRQ(void)
 {
     if( USART_GetITStatus(USART1, USART_IT_IDLE)!=RESET)
     {
-        USART_ReceiveData( USART1);
+        USART_ReceiveData(USART1);
         DMA_Cmd(DMA1_Channel5, DISABLE); 
-        MC20_Msg_In_to_Queue(g_Gprs_R_buf,GPRS_UART_DATA_LEN_MAX - DMA_GetCurrDataCounter(DMA1_Channel5));
-        MC20Task_Send_Event(MC20_TASK_REV_EVENT);
+        MC20_Rev_Queue_Process(g_Gprs_R_buf,GPRS_UART_DATA_LEN_MAX - DMA_GetCurrDataCounter(DMA1_Channel5));
         DMA_SetCurrDataCounter(DMA1_Channel5, GPRS_UART_DATA_LEN_MAX); 
         DMA_Cmd(DMA1_Channel5, ENABLE); 
     }
@@ -235,7 +235,7 @@ void MC20_Power_Pin_Rest(void)
     GPIO_ResetBits(GPIOB, GPIO_Pin_0); 
 }
 
-void MC20_CMD_Send(uint8_t * cmd_buf,uint8_t cmd_len)
+void MC20_CMD_Send(const char  * cmd_buf,uint8_t cmd_len)
 {
     memcpy(g_Gprs_T_buf,cmd_buf ,cmd_len );
     DMA_SetCurrDataCounter(DMA1_Channel4, cmd_len); 

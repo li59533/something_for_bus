@@ -18,7 +18,7 @@
 #include "clock.h"
 #include "system_info.h"
 #include "user_task.h"
-#include "application.h"
+#include "application_process.h"
 
 /**
  * @addtogroup    XXX 

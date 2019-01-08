@@ -103,7 +103,8 @@ extern const char MC20_CMD_QIDNSIP_DOMAIN_BUF[]; // 300ms
 extern const char MC20_CMD_QIHEAD_BUF[]; // 300ms
 extern const char MC20_CMD_QIOPEN_BUF[]; // 75s
 extern const char MC20_CMD_QISEND_BUF[]; // 300ms
-extern const char MC20_CMD_QISACK_BUF[];
+extern const char MC20_CMD_QISACK_BUF[];    // 300ms
+extern const char MC20_CMD_QPOWD_BUF[]; // 300ms
 /**
  * @}
  */

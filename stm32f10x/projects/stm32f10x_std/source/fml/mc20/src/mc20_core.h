@@ -27,7 +27,11 @@
  * @defgroup      mc20_core_Exported_Macros 
  * @{  
  */
-
+#define MC20_TIMEOUT_300MS              300
+#define MC20_TIMEOUT_1000MS            1000
+#define MC20_TIMEOUT_3000MS            3000
+#define MC20_TIMEOUT_40000MS            40000
+#define MC20_TIMEOUT_60000MS            60000
 /**
  * @}
  */

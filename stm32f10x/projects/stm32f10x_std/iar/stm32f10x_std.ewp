@@ -3200,6 +3200,9 @@
         <file>
           <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_queue.c</name>
         </file>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_queue_process.c</name>
+        </file>
       </group>
     </group>
     <group>
@@ -3223,6 +3226,9 @@
         <name>$PROJ_DIR$\..\source\fml\system\system_param.h</name>
       </file>
     </group>
+    <file>
+      <name>$PROJ_DIR$\..\source\fml\application_process.c</name>
+    </file>
     <file>
       <name>$PROJ_DIR$\..\source\fml\fml_init.c</name>
     </file>
@@ -3262,7 +3268,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\clog\clog.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\components\MDL\clog\clog.h</name>
+        <name>$PROJ_DIR$\..\..\..\Components\MDL\clog\clog.h</name>
       </file>
     </group>
     <group>
@@ -3277,7 +3283,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Components\MDL\cshell\cshell_port.h</name>
+        <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_user.c</name>

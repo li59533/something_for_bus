@@ -605,6 +605,8 @@
                         <F N="../source/fml/mc20/src/mc20_gprs_conf.h"/>
                         <F N="../source/fml/mc20/src/mc20_queue.c"/>
                         <F N="../source/fml/mc20/src/mc20_queue.h"/>
+                        <F N="../source/fml/mc20/src/mc20_queue_process.c"/>
+                        <F N="../source/fml/mc20/src/mc20_queue_process.h"/>
                     </Folder>
                 </Folder>
                 <Folder Name="ODB">

@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        mc20_port.h
+ * @file        mc20_queue_process.h
  * @author
  * @version    v0.1.0
  * @date        
@@ -10,30 +10,21 @@
  *
  **************************************************************************************************
  */
-#ifndef _MC20_PORT_H_
-#define _MC20_PORT_H_
-#include "self_def.h"
+#ifndef _MC20_QUEUE_PROCESS_H_
+#define _MC20_QUEUE_PROCESS_H_
+
 /**
  * @addtogroup    XXX 
  * @{ 
  */
-
+#include "self_def.h"
 /**
- * @addtogroup    mc20_port_Modules 
+ * @addtogroup    mc20_queue_process_Modules 
  * @{  
  */
 
 /**
- * @defgroup      mc20_port_Exported_Macros 
- * @{  
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup      mc20_port_Exported_Constants
+ * @defgroup      mc20_queue_process_Exported_Macros 
  * @{  
  */
 
@@ -42,7 +33,7 @@
  */
 
 /**
- * @defgroup      mc20_port_Exported_Types 
+ * @defgroup      mc20_queue_process_Exported_Constants
  * @{  
  */
 
@@ -51,7 +42,7 @@
  */
 
 /**
- * @defgroup      mc20_port_Exported_Variables 
+ * @defgroup      mc20_queue_process_Exported_Types 
  * @{  
  */
 
@@ -60,17 +51,19 @@
  */
 
 /**
- * @defgroup      mc20_port_Exported_Functions 
+ * @defgroup      mc20_queue_process_Exported_Variables 
  * @{  
  */
-void MC20_Hal_Init(void);
-void MC20_DMA_IRQ(void);
-void MC20_Uart_IDLE_IRQ(void);
-void MC20_Power_Pin_Set(void);
-void MC20_Power_Pin_Rest(void);
-void MC20_CMD_Send(const char  * cmd_buf,uint8_t cmd_len);
-void MC20_Data_Send(uint8_t * data_buf,uint16_t data_len);
 
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      mc20_queue_process_Exported_Functions 
+ * @{  
+ */
+void MC20_Rev_Queue_Process(uint8_t * rev_buf,uint16_t rev_len);
 /**
  * @}
  */

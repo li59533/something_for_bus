@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        fml_init.c
+ * @file        mc20_queue_process.c
  * @author
  * @version   v0.1.0
  * @date        
@@ -10,21 +10,21 @@
  *
  **************************************************************************************************
  */
-#include "fml_init.h"
-#include "mc20_app.h"
-#include "mc20_core.h"
+#include "mc20_queue_process.h"
+#include "mc20_queue.h"
+#include "mc20_task.h"
 /**
  * @addtogroup    XXX 
  * @{  
  */
 
 /**
- * @addtogroup    fml_init_Modules 
+ * @addtogroup    mc20_queue_process_Modules 
  * @{  
  */
 
 /**
- * @defgroup      fml_init_IO_Defines 
+ * @defgroup      mc20_queue_process_IO_Defines 
  * @brief         
  * @{  
  */
@@ -34,7 +34,7 @@
  */
 
 /**
- * @defgroup      fml_init_Macros_Defines 
+ * @defgroup      mc20_queue_process_Macros_Defines 
  * @brief         
  * @{  
  */
@@ -44,7 +44,7 @@
  */
 
 /**
- * @defgroup      fml_init_Constants_Defines 
+ * @defgroup      mc20_queue_process_Constants_Defines 
  * @brief         
  * @{  
  */
@@ -54,7 +54,7 @@
  */
 
 /**
- * @defgroup      fml_init_Private_Types
+ * @defgroup      mc20_queue_process_Private_Types
  * @brief         
  * @{  
  */
@@ -64,7 +64,7 @@
  */
 
 /**
- * @defgroup      fml_init_Private_Variables 
+ * @defgroup      mc20_queue_process_Private_Variables 
  * @brief         
  * @{  
  */
@@ -74,7 +74,7 @@
  */
 
 /**
- * @defgroup      fml_init_Public_Variables 
+ * @defgroup      mc20_queue_process_Public_Variables 
  * @brief         
  * @{  
  */
@@ -84,7 +84,7 @@
  */
 
 /**
- * @defgroup      fml_init_Private_FunctionPrototypes 
+ * @defgroup      mc20_queue_process_Private_FunctionPrototypes 
  * @brief         
  * @{  
  */
@@ -94,13 +94,14 @@
  */
 
 /**
- * @defgroup      fml_init_Functions 
+ * @defgroup      mc20_queue_process_Functions 
  * @brief         
  * @{  
  */
-void Fml_Init(void)
+void MC20_Rev_Queue_Process(uint8_t * rev_buf,uint16_t rev_len)
 {
-    MC20_Init();
+    MC20_ATcmdMsg_In_to_Queue(rev_buf, rev_len);
+    MC20Task_Send_Event(MC20_TASK_CORE_RUN_LOOP);
 }
 /**
  * @}
