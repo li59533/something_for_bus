@@ -74,6 +74,10 @@ typedef enum
     MC20_CMD_QISACK_Resp,
     MC20_CMD_QPOWD,
     MC20_CMD_QPOWD_Resp,
+    MC20_HAL_RESTART,
+    MC20_HAL_RESTART_Resp,
+    MC20_GPRS_CONNECT_ING,
+
 }MC20_ATcmd_enum;
 /**
  * @}

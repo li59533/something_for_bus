@@ -72,8 +72,9 @@ void MC20_Msg_Out_From_Queue(uint8_t *buf,uint16_t *len);
 uint8_t MC20_Msg_Queue_Get_Count(void);
 
 void MC20_ATcmdMsg_In_to_Queue(uint8_t *buf,uint16_t len);
-uint8_t * MC20_ATcmdMsg_Out_From_Queue(uint16_t *len);
+void MC20_ATcmdMsg_Out_From_Queue(uint8_t * rev_buf,uint8_t *len);
 uint8_t MC20_ATcmdMsg_Queue_Get_Count(void);
+void MC20_AT_Queue_Init(void);
 
 /**
  * @}

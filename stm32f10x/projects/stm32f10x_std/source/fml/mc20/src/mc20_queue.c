@@ -11,7 +11,7 @@
  **************************************************************************************************
  */
 #include "mc20_queue.h"
-
+#include "clog.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -242,24 +242,32 @@ void MC20_ATcmdMsg_In_to_Queue(uint8_t *buf,uint16_t len)
     MC20_Queue_ATcmdMsg.In %= MC20_Queue_ATcmdMsg.Size;
     MC20_Queue_ATcmdMsg.Count %= MC20_Queue_ATcmdMsg.Size;
 }
-uint8_t * MC20_ATcmdMsg_Out_From_Queue(uint16_t *len)
+void MC20_ATcmdMsg_Out_From_Queue(uint8_t * rev_buf,uint8_t *len)
 {
-	uint8_t * msg_buf_addr = 0;
     if (MC20_Queue_ATcmdMsg.Count > 0)
     {
-        msg_buf_addr = MC20_Queue_ATcmdMsg.ATcmdMsgptr[MC20_Queue_ATcmdMsg.Out].ATcmdMsgBuf;
+        memcpy(rev_buf,MC20_Queue_ATcmdMsg.ATcmdMsgptr[MC20_Queue_ATcmdMsg.Out].ATcmdMsgBuf,MC20_Queue_ATcmdMsg.ATcmdMsgptr[MC20_Queue_ATcmdMsg.Out].ATcmdMsgBuf_Len);        
         *len = MC20_Queue_ATcmdMsg.ATcmdMsgptr[MC20_Queue_ATcmdMsg.Out].ATcmdMsgBuf_Len;
         MC20_Queue_ATcmdMsg.Count --;
         MC20_Queue_ATcmdMsg.Out ++;
         MC20_Queue_ATcmdMsg.Out %= MC20_Queue_ATcmdMsg.Size;
     }
-	return msg_buf_addr;
 }
 uint8_t MC20_ATcmdMsg_Queue_Get_Count(void)
 {
     return MC20_Queue_ATcmdMsg.Count;
 }
 
+void MC20_AT_Queue_Init(void)
+{
+    MC20_Queue_ATcmdMsg.Count = 0;
+    MC20_Queue_ATcmdMsg.In = 0;
+    MC20_Queue_ATcmdMsg.Out = 0;
+	MC20_Queue_Core.Count = 0;
+	MC20_Queue_Core.In = 0;
+	MC20_Queue_Core.Out = 0;
+	
+}
 
 
 
