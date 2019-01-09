@@ -631,7 +631,5 @@
                 <F N="../source/fml/fml_init.h"/>
             </Folder>
         </Folder>
-        <F N="ODB_init.c"/>
-        <F N="ODB_init.h"/>
     </Files>
 </Project>
