@@ -51,6 +51,16 @@
  * @defgroup      mc20_core_Exported_Types 
  * @{  
  */
+
+typedef enum
+{
+    Rev_Null=1,
+    Rev_Wait,
+    Rev_Pass,
+    Rev_Timeout,
+    Rev_Error,
+}Core_Rev_Status_enum;
+
 typedef struct
 {
 	uint8_t status_machine;
@@ -84,9 +94,11 @@ extern MC20_Status_t MC20_Status;
 void MC20_Init(void);
 void MC20_Core_Run_Process(void);
 void MC20_Core_Rev_Loop_Process(void);
-void MC20_GPRS_Start_Process(void);
-void MC20_GPS_Start_Process(void);
+
 void MC20_GPS_GetLocation_Process(void);
+
+void MC20_Core_Gprs_RevStatus_To_Be(uint8_t rev_status);
+
 /**
  * @}
  */

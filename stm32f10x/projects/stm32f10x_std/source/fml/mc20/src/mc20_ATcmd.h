@@ -77,7 +77,21 @@ typedef enum
     MC20_HAL_RESTART,
     MC20_HAL_RESTART_Resp,
     MC20_GPRS_CONNECT_ING,
-
+    MC20_GPRS_CONNECT_ING_Resp,
+    MC20_GPS_QGNSSC,
+    MC20_GPS_QGNSSC_Resp,
+    MC20_GPS_QIFGCNT,
+    MC20_GPS_QIFGCNT_Resp,
+    MC20_GPS_QGNSSTS,
+    MC20_GPS_QGNSSTS_Resp,
+    MC20_GPS_QGNSSEPO,
+    MC20_GPS_QGNSSEPO_Resp,
+    MC20_GPS_QGEPOAID,
+    MC20_GPS_QGEPOAID_Resp,
+    MC20_GPS_QGNSSRD,
+    MC20_GPS_QGNSSRD_Resp,
+    MC20_GPS_QGNSSRD_RMC,
+    MC20_GPS_QGNSSRD_RMC_Resp,
 }MC20_ATcmd_enum;
 /**
  * @}
@@ -109,6 +123,15 @@ extern const char MC20_CMD_QIOPEN_BUF[]; // 75s
 extern const char MC20_CMD_QISEND_BUF[]; // 300ms
 extern const char MC20_CMD_QISACK_BUF[];    // 300ms
 extern const char MC20_CMD_QPOWD_BUF[]; // 300ms
+
+
+extern const char MC20_CMD_QGNSSC_BUF[];
+extern const char MC20_CMD_QGNSSTS_BUF[];
+extern const char MC20_CMD_QGNSSEPO_BUF[];
+extern const char MC20_CMD_QGEPOAID_BUF[];
+extern const char MC20_CMD_QGNSSRD_BUF[];
+extern const char MC20_CMD_QGNSSRD_RMC_BUF[];
+
 /**
  * @}
  */

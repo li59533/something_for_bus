@@ -601,6 +601,10 @@
                         <F N="../source/fml/mc20/src/mc20_conf.h"/>
                         <F N="../source/fml/mc20/src/mc20_core.c"/>
                         <F N="../source/fml/mc20/src/mc20_core.h"/>
+                        <F N="../source/fml/mc20/src/mc20_core_gprs.c"/>
+                        <F N="../source/fml/mc20/src/mc20_core_gprs.h"/>
+                        <F N="../source/fml/mc20/src/mc20_core_gps.c"/>
+                        <F N="../source/fml/mc20/src/mc20_core_gps.h"/>
                         <F N="../source/fml/mc20/src/mc20_gprs_conf.c"/>
                         <F N="../source/fml/mc20/src/mc20_gprs_conf.h"/>
                         <F N="../source/fml/mc20/src/mc20_queue.c"/>

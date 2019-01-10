@@ -3195,6 +3195,12 @@
           <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_core.c</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_core_gprs.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_core_gps.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\source\fml\mc20\src\mc20_gprs_conf.c</name>
         </file>
         <file>
@@ -3277,7 +3283,7 @@
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\..\..\..\Components\MDL\cshell\cshell.h</name>
+        <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell.h</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\cshell\cshell_port.c</name>
