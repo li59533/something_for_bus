@@ -125,6 +125,7 @@ osal_event_t MC20Task_Process(uint8_t taskid,osal_event_t events)
     {
         
         MC20_GPS_Start_Process();
+        
         OS_Timer_Start(taskid,MC20_TASK_GPS_EVENT,20);
         return events ^ MC20_TASK_GPS_EVENT;
     }
