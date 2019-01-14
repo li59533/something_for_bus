@@ -92,6 +92,8 @@ typedef enum
     MC20_GPS_QGNSSRD_Resp,
     MC20_GPS_QGNSSRD_RMC,
     MC20_GPS_QGNSSRD_RMC_Resp,
+    MC20_GPS_GNSS_OK,
+    MC20_GPS_GNSS_OK_Resp,
 }MC20_ATcmd_enum;
 /**
  * @}

@@ -105,7 +105,7 @@ void MC20Task_Init(uint8_t taskId)
 {
     g_MC20Task_Id = taskId;
     OS_Events_Set(g_MC20Task_Id,MC20_TASK_CORE_RUN_LOOP);
-    //OS_Timer_Start(g_MC20Task_Id,MC20_TASK_GPRS_EVENT,20);
+    OS_Timer_Start(g_MC20Task_Id,MC20_TASK_GPRS_EVENT,20);
     OS_Timer_Start(g_MC20Task_Id,MC20_TASK_GPS_EVENT,20);
 }
 

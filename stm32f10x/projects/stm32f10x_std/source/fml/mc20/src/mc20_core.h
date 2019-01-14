@@ -59,18 +59,39 @@ typedef enum
     Rev_Pass,
     Rev_Timeout,
     Rev_Error,
-}Core_Rev_Status_enum;
+}Core_Status_enum;
+
+typedef enum
+{
+    CHECKSUM_XOR_PASS=1,
+    CHECKSUM_XOR_ERROR,
+    DATA_ERROR,
+    DATA_OK,
+}Core_OK_ERROR_Status_enum;
 
 typedef struct
 {
 	uint8_t status_machine;
 	uint8_t status_Rev;
-}Status_Mactine_t;
+}Status_Mactine_GPRS_t;
+
 typedef struct
 {
-	Status_Mactine_t GPRS_Status_Machine;
-	Status_Mactine_t GPS_Status_Machine;
-    Status_Mactine_t CORE_Status_Machine;
+	uint8_t status_machine;
+	uint8_t status_Rev;
+}Status_Mactine_GPS_t;
+
+typedef struct
+{
+	uint8_t status_machine;
+	uint8_t status_Rev;
+}Status_Mactine_CORE_t;
+
+typedef struct
+{
+	Status_Mactine_GPRS_t GPRS_Status_Machine;
+	Status_Mactine_GPS_t GPS_Status_Machine;
+    Status_Mactine_CORE_t CORE_Status_Machine;
 }MC20_Status_t;
 /**
  * @}

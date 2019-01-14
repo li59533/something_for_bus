@@ -571,16 +571,16 @@ void MC20_GPRS_Start_Process(void)
                 case Rev_Wait:
                     break;
                 case Rev_Pass:
-                    MC20_Gprs_Status_To_Be(MC20_CMD_QISACK);
+                    MC20_Gprs_Status_To_Be(MC20_GPRS_CONNECT_ING);
                     rev_count = 0;
                     break;
                 case Rev_Timeout:
                     rev_count ++;                  
-                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_CMD_QISEND):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
+                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_GPRS_CONNECT_ING):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
                     break;
                 case Rev_Error:
                     rev_count ++;                  
-                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_CMD_QISEND):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
+                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_GPRS_CONNECT_ING):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
                     break;
                 default:break;
             }
@@ -599,7 +599,7 @@ void MC20_GPRS_Start_Process(void)
                 case Rev_Wait:
                     break;
                 case Rev_Pass:
-                    MC20_Gprs_Status_To_Be(123);
+                    MC20_Gprs_Status_To_Be(MC20_GPRS_CONNECT_ING);
                     rev_count = 0;
                     break;
                 case Rev_Timeout:
@@ -616,6 +616,8 @@ void MC20_GPRS_Start_Process(void)
         }
         case MC20_GPRS_CONNECT_ING:
             break;
+        case MC20_GPRS_CONNECT_ING_Resp:
+            break;
         default:
         {
             rev_count = 0;
@@ -628,6 +630,18 @@ void MC20_Gprs_Status_To_Be(uint8_t gprs_status)
 {
     MC20_Core_Gprs_RevStatus_To_Be(Rev_Wait);
     MC20_Status.GPRS_Status_Machine.status_machine = gprs_status;
+}
+
+
+void MC20_Send_Data_To_Server(uint8_t * send_buf,uint16_t send_len)
+{
+    MC20_ATcmd_In_to_Queue(MC20_CMD_QISEND);
+    MC20_Send_Msg_In_to_Queue(send_buf,send_len);
+}
+
+uint8_t MC20_Gprs_Status_Is(void)
+{
+    return MC20_Status.GPRS_Status_Machine.status_machine ;
 }
 
 

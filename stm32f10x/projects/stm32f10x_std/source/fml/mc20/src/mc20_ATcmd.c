@@ -65,8 +65,8 @@ const char MC20_CMD_QILOCIP_BUF[] = {"AT+QILOCIP\r\n"}; // 300ms
 const char MC20_CMD_QIDNSIP_IP_BUF[] = {"AT+QIDNSIP=0\r\n"}; // ,300ms
 const char MC20_CMD_QIDNSIP_DOMAIN_BUF[] = {"AT+QIDNSIP=1\r\n"}; // ,300ms
 const char MC20_CMD_QIHEAD_BUF[] = {"AT+QIHEAD=0\r\n"}; // ,300ms
-const char MC20_CMD_QIOPEN_BUF[] = {"AT+QIOPEN=\"TCP\",\"139.199.153.158\",\"40385\"\r\n"}; // 75ms
-const char MC20_CMD_QISEND_BUF[] = {"AT+QISEND=1\r\n"}; // 300ms
+const char MC20_CMD_QIOPEN_BUF[] = {"AT+QIOPEN=\"TCP\",\"139.199.153.158\",\"33071\"\r\n"}; // 75ms
+const char MC20_CMD_QISEND_BUF[] = {"AT+QISEND\r\n"}; // 300ms
 const char MC20_CMD_QISACK_BUF[] = {"AT+QISACK\r\n"};
 const char MC20_CMD_QPOWD_BUF[] = {"AT+QPOWD=1\r\n"};
 
@@ -75,7 +75,7 @@ const char MC20_CMD_QGNSSTS_BUF[] = {"AT+QGNSSTS?\r\n"};
 const char MC20_CMD_QGNSSEPO_BUF[] = {"AT+QGNSSEPO=1\r\n"};
 const char MC20_CMD_QGEPOAID_BUF[] = {"AT+QGEPOAID\r\n"};
 const char MC20_CMD_QGNSSRD_BUF[] = {"AT+QGNSSRD?\r\n"};
-const char MC20_CMD_QGNSSRD_RMC_BUF[] = {"AT+QGNSSRD=\"NMEA\/RMC\"\r\n"};
+const char MC20_CMD_QGNSSRD_RMC_BUF[] = {"AT+QGNSSRD=\"NMEA/RMC\"\r\n"};
 
 
 

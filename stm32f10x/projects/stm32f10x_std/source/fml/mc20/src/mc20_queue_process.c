@@ -100,7 +100,7 @@
  */
 void MC20_Rev_Queue_Process(uint8_t * rev_buf,uint16_t rev_len)
 {
-    if (rev_len < 30)
+    if (rev_len < 50)
     {
         MC20_ATcmdMsg_In_to_Queue(rev_buf, rev_len);
         memcpy(rev_buf,0,rev_len);

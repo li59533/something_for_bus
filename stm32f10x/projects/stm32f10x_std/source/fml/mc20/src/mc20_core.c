@@ -98,9 +98,9 @@ MC20_Status_t MC20_Status;
  * @{  
  */
 static void mc20_core_status_to_be(uint8_t core_status);
-
-
 static void mc20_func_status_machine_init(void);
+static void mc20_gprs_status_machine_init(void);
+static void mc20_gps_status_machine_init(void);
 /**
  * @}
  */
@@ -132,8 +132,9 @@ void MC20_Core_Run_Process(void)
     static uint8_t rev_buf_temp[20];
     static uint8_t rev_buf_len;
     uint8_t rev_msg_buf_temp[400];
-    uint16_t rev_msg_buf_len;
-    
+    uint16_t rev_msg_buf_len = 0;
+    uint8_t * send_msg_buf_addr = 0;
+    uint16_t send_msg_buf_len = 0;
     switch (MC20_Status.CORE_Status_Machine.status_machine)
     {
         case MC20_IDLE:
@@ -142,6 +143,22 @@ void MC20_Core_Run_Process(void)
             {
                 MC20_Status.CORE_Status_Machine.status_machine = MC20_ATcmd_Out_From_Queue();
             }
+            if (strstr((char *)rev_buf_temp,"CLOSED"))
+            {
+                INFO("--rev:serverclosed\r\n");
+                mc20_gprs_status_machine_init();
+                MC20_Gprs_Status_To_Be(MC20_CMD_QIOPEN);
+            }
+            else if(MC20_ATcmdMsg_Queue_Get_Count() > 0)
+            {
+                MC20_ATcmdMsg_Out_From_Queue(rev_buf_temp,&rev_buf_len); 
+                if (strstr((char *)rev_buf_temp,"CLOSED"))
+                {
+                    INFO("--rev:serverclosed\r\n");
+                    mc20_gprs_status_machine_init();
+                    MC20_Gprs_Status_To_Be(MC20_CMD_QIOPEN);
+                }	
+            }
             break;
         }
         case MC20_CMD_AT:
@@ -149,7 +166,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_AT_BUF,strlen(MC20_CMD_AT_BUF));            
             mc20_core_status_to_be(MC20_CMD_AT_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-at\r\n");
+            DEBUG("--cmd-at\r\n");
             break;
         }
         case MC20_CMD_AT_Resp:
@@ -163,20 +180,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-at-pass\r\n");
+                    DEBUG("--rev-at-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-at-error\r\n");
+                    DEBUG("--rev-at-error\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-at-timout\r\n");
+                    DEBUG("--rev-at-timout\r\n");
             }
             
             break;
@@ -186,7 +203,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_ATE_BUF,strlen(MC20_CMD_ATE_BUF));            
             mc20_core_status_to_be(MC20_CMD_ATE_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-ate\r\n");
+            DEBUG("--cmd-ate\r\n");
             break;
         }
         case MC20_CMD_ATE_Resp:
@@ -200,21 +217,21 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-ATE-pass\r\n");
+                    DEBUG("--rev-ATE-pass\r\n");
                     
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-ATE-ERROR\r\n");
+                    DEBUG("--rev-ATE-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-ATE-TIMOUT\r\n");
+                    DEBUG("--rev-ATE-TIMOUT\r\n");
             }
             
             break;
@@ -224,7 +241,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_IPR_BUF,strlen(MC20_CMD_IPR_BUF));            
             mc20_core_status_to_be(MC20_CMD_IPR_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-IPR\r\n");
+            DEBUG("--cmd-IPR\r\n");
             break;
         }
         case MC20_CMD_IPR_Resp:
@@ -238,20 +255,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-IPR-pass\r\n");
+                    DEBUG("--rev-IPR-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-IPR-ERROR\r\n");
+                    DEBUG("--rev-IPR-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-IPR-TIMOUTs\r\n");
+                    DEBUG("--rev-IPR-TIMOUTs\r\n");
             }
     
             break;
@@ -261,7 +278,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_CPIN_BUF,strlen(MC20_CMD_CPIN_BUF));            
             mc20_core_status_to_be(MC20_CMD_IPR_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-CPIN\r\n");
+            DEBUG("--cmd-CPIN\r\n");
             break;
         }
         case MC20_CMD_CPIN_Resp:
@@ -275,20 +292,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-CPIN-pass\r\n");
+                    DEBUG("--rev-CPIN-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-CPIN-ERROR\r\n");
+                    DEBUG("--rev-CPIN-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_3000MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-CPIN-TIMOUT\r\n");
+                    DEBUG("--rev-CPIN-TIMOUT\r\n");
             }
           
             break;
@@ -298,7 +315,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_CSQ_BUF,strlen(MC20_CMD_CSQ_BUF));            
             mc20_core_status_to_be(MC20_CMD_CSQ_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-CSQ\r\n");
+            DEBUG("--cmd-CSQ\r\n");
             break;
         }
         case MC20_CMD_CSQ_Resp:
@@ -312,20 +329,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-CSQ-pass\r\n");
+                    DEBUG("--rev-CSQ-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-CSQ-ERROR\r\n");
+                    DEBUG("--rev-CSQ-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-CSQ-TIMOUT\r\n");
+                    DEBUG("--rev-CSQ-TIMOUT\r\n");
             }
            
             break;
@@ -335,7 +352,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_CREG_BUF,strlen(MC20_CMD_CREG_BUF));            
             mc20_core_status_to_be(MC20_CMD_CREG_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-CREG\r\n");
+            DEBUG("--cmd-CREG\r\n");
             break;
         }
         case MC20_CMD_CREG_Resp:
@@ -349,20 +366,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-CREG-pass\r\n");
+                    DEBUG("--rev-CREG-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-CREG-ERROR\r\n");
+                    DEBUG("--rev-CREG-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-CREG-TIMOUT\r\n");
+                    DEBUG("--rev-CREG-TIMOUT\r\n");
             }
            
             break;
@@ -372,7 +389,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_CGREG_BUF,strlen(MC20_CMD_CGREG_BUF));            
             mc20_core_status_to_be(MC20_CMD_CGREG_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-CGREG\r\n");
+            DEBUG("--cmd-CGREG\r\n");
             break;
         }
         case MC20_CMD_CGREG_Resp:
@@ -386,20 +403,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-CGREG-pass\r\n");
+                    DEBUG("--rev-CGREG-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-CGREG-ERROR\r\n");
+                    DEBUG("--rev-CGREG-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-CGREG-TIMOUT\r\n");
+                    DEBUG("--rev-CGREG-TIMOUT\r\n");
             }
             
             break;
@@ -409,7 +426,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIFGCNT_BUF,strlen(MC20_CMD_QIFGCNT_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIFGCNT_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIFGCNT\r\n");
+            DEBUG("--cmd-QIFGCNT\r\n");
             break;
         }
         case MC20_CMD_QIFGCNT_Resp:
@@ -423,20 +440,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIFGCNT-pass\r\n");
+                    DEBUG("--rev-QIFGCNT-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIFGCNT-pass\r\n");
+                    DEBUG("--rev-QIFGCNT-pass\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIFGCNT-pass\r\n");
+                    DEBUG("--rev-QIFGCNT-pass\r\n");
             }
            
             break;
@@ -446,7 +463,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QICSGP_BUF,strlen(MC20_CMD_QICSGP_BUF));            
             mc20_core_status_to_be(MC20_CMD_QICSGP_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QICSGP\r\n");
+            DEBUG("--cmd-QICSGP\r\n");
             break;
         }
         case MC20_CMD_QICSGP_Resp:
@@ -460,20 +477,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QICSGP-pass\r\n");
+                    DEBUG("--rev-QICSGP-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QICSGP-ERROR\r\n");
+                    DEBUG("--rev-QICSGP-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QICSGP-TIMOUT\r\n");
+                    DEBUG("--rev-QICSGP-TIMOUT\r\n");
             }
             
             break;
@@ -483,7 +500,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIDEACT_BUF,strlen(MC20_CMD_QIDEACT_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIDEACT_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIDACT\r\n");
+            DEBUG("--cmd-QIDACT\r\n");
             break;
         }
         case MC20_CMD_QIDEACT_Resp:
@@ -497,20 +514,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIDEACT-pass\r\n");
+                    DEBUG("--rev-QIDEACT-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIDEACT-ERROR\r\n");
+                    DEBUG("--rev-QIDEACT-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_40000MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIDEAVT-TIMOUT\r\n");
+                    DEBUG("--rev-QIDEAVT-TIMOUT\r\n");
             }
             
             break;
@@ -520,7 +537,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIMODE_BUF,strlen(MC20_CMD_QIMODE_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIMODE_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIMODE\r\n");
+            DEBUG("--cmd-QIMODE\r\n");
             break;
         }
         case MC20_CMD_QIMODE_Resp:
@@ -534,20 +551,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIMODE-pass\r\n");
+                    DEBUG("--rev-QIMODE-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIMODE-ERROR\r\n");
+                    DEBUG("--rev-QIMODE-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIMODE-TIMOUT\r\n");
+                    DEBUG("--rev-QIMODE-TIMOUT\r\n");
             }
             
             break;
@@ -557,7 +574,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIMUX_BUF,strlen(MC20_CMD_QIMUX_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIMUX_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIMUX\r\n");
+            DEBUG("--cmd-QIMUX\r\n");
             break;
         }
         case MC20_CMD_QIMUX_Resp:
@@ -571,20 +588,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIMUX-pass\r\n");
+                    DEBUG("--rev-QIMUX-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIMUX-ERROR\r\n");
+                    DEBUG("--rev-QIMUX-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIMUX-TIMOUT\r\n");
+                    DEBUG("--rev-QIMUX-TIMOUT\r\n");
             }
             
             break;
@@ -594,7 +611,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIREGAPP_BUF,strlen(MC20_CMD_QIREGAPP_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIREGAPP_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIREGAPP\r\n");
+            DEBUG("--cmd-QIREGAPP\r\n");
             break;
         }
         case MC20_CMD_QIREGAPP_Resp:
@@ -608,20 +625,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIREGAPP-pass\r\n");
+                    DEBUG("--rev-QIREGAPP-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIREGAPP-ERROR\r\n");
+                    DEBUG("--rev-QIREGAPP-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIREGAPP-TIMOUT\r\n");
+                    DEBUG("--rev-QIREGAPP-TIMOUT\r\n");
             }
             
             break;
@@ -631,7 +648,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIACT_BUF,strlen(MC20_CMD_QIACT_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIACT_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIACT\r\n");
+            DEBUG("--cmd-QIACT\r\n");
             break;
         }
         case MC20_CMD_QIACT_Resp:
@@ -645,20 +662,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIACT-pass\r\n");
+                    DEBUG("--rev-QIACT-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIACT-ERROR\r\n");
+                    DEBUG("--rev-QIACT-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_60000MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIACT-TIMOUT\r\n");
+                    DEBUG("--rev-QIACT-TIMOUT\r\n");
             }
             
             break;
@@ -668,7 +685,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QILOCIP_BUF,strlen(MC20_CMD_QILOCIP_BUF));            
             mc20_core_status_to_be(MC20_CMD_QILOCIP_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QILOCIP\r\n");
+            DEBUG("--cmd-QILOCIP\r\n");
             break;
         }
         case MC20_CMD_QILOCIP_Resp:
@@ -682,20 +699,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QILOCIP-pass\r\n");
+                    DEBUG("--rev-QILOCIP-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QILOCIP-ERROR\r\n");
+                    DEBUG("--rev-QILOCIP-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QILOCIP-TIMOUT\r\n");
+                    DEBUG("--rev-QILOCIP-TIMOUT\r\n");
             }
             
             break;
@@ -705,7 +722,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIDNSIP_IP_BUF,strlen(MC20_CMD_QIDNSIP_IP_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIDNSIP_IP_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIDNSIP_IP\r\n");
+            DEBUG("--cmd-QIDNSIP_IP\r\n");
             break;
         }
         case MC20_CMD_QIDNSIP_IP_Resp:
@@ -719,20 +736,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIDNSIP_IP-pass\r\n");
+                    DEBUG("--rev-QIDNSIP_IP-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIDNSIP_IP-ERROR\r\n");
+                    DEBUG("--rev-QIDNSIP_IP-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIDNSIP_IP-TIMOUT\r\n");
+                    DEBUG("--rev-QIDNSIP_IP-TIMOUT\r\n");
             }
             
             break;
@@ -742,7 +759,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIDNSIP_DOMAIN_BUF,strlen(MC20_CMD_QIDNSIP_DOMAIN_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIDNSIP_DOMAIN_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIDNSIP_DOMAIN\r\n");
+            DEBUG("--cmd-QIDNSIP_DOMAIN\r\n");
             break;
         }
         case MC20_CMD_QIDNSIP_DOMAIN_Resp:
@@ -756,20 +773,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIDNSIP_DOMAIN-pass\r\n");
+                    DEBUG("--rev-QIDNSIP_DOMAIN-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIDNSIP_DOMAIN-ERROR\r\n");
+                    DEBUG("--rev-QIDNSIP_DOMAIN-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIDNSIP_DOMAIN-TIMOUT\r\n");
+                    DEBUG("--rev-QIDNSIP_DOMAIN-TIMOUT\r\n");
             }
             
             break;
@@ -779,7 +796,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIHEAD_BUF,strlen(MC20_CMD_QIHEAD_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIHEAD_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIHEAD\r\n");
+            DEBUG("--cmd-QIHEAD\r\n");
             break;
         }
         case MC20_CMD_QIHEAD_Resp:
@@ -793,20 +810,20 @@ void MC20_Core_Run_Process(void)
                 {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QIHEAD-pass\r\n");
+                    DEBUG("--rev-QIHEAD-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIHEAD-ERROR\r\n");
+                    DEBUG("--rev-QIHEAD-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIHEAD-TIMOUT\r\n");
+                    DEBUG("--rev-QIHEAD-TIMOUT\r\n");
             }
             
             break;
@@ -816,7 +833,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QIOPEN_BUF,strlen(MC20_CMD_QIOPEN_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIOPEN_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QIOPEN\r\n");
+            DEBUG("--cmd-QIOPEN\r\n");
             break;
         }
         case MC20_CMD_QIOPEN_Resp:
@@ -832,27 +849,27 @@ void MC20_Core_Run_Process(void)
                     {
                         mc20_core_status_to_be(MC20_IDLE);
                         MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                        INFO("--rev-QIOPEN-pass\r\n");
+                        DEBUG("--rev-QIOPEN-pass\r\n");
                     }
                     else
                     {
                         mc20_core_status_to_be(MC20_IDLE);
                         MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                        INFO("--rev-QIOPEN-pass\r\n");
+                        DEBUG("--rev-QIOPEN-pass\r\n");
                     }
                 }
                 else
                 {
 					//mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QIOPEN-ERROR\r\n");
+                    DEBUG("--rev-QIOPEN-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_60000MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QIOPEN-ERROR\r\n");
+                    DEBUG("--rev-QIOPEN-ERROR\r\n");
             }
             
             break;
@@ -862,7 +879,7 @@ void MC20_Core_Run_Process(void)
             MC20_CMD_Send(MC20_CMD_QISEND_BUF,strlen(MC20_CMD_QISEND_BUF));            
             mc20_core_status_to_be(MC20_CMD_QISEND_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
-            INFO("--cmd-QISEND\r\n");
+            DEBUG("--cmd-QISEND\r\n");
             break;
         }
         case MC20_CMD_QISEND_Resp:
@@ -874,22 +891,24 @@ void MC20_Core_Run_Process(void)
                 DEBUG("rev:%s\r\n",rev_buf_temp);  
                 if (strstr((char *)rev_buf_temp,">") > 0)
                 {
+                    send_msg_buf_addr = MC20_Send_Msg_Out_From_Queue(&send_msg_buf_len); 
+                    MC20_Data_Send(send_msg_buf_addr,send_msg_buf_len);
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
-                    INFO("--rev-QISEND-pass\r\n");
+                    DEBUG("--rev-QISEND-pass\r\n");
                 }
                 else
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QISEND-ERROR\r\n");
+                    DEBUG("--rev-QISEND-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
             {
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Timeout);
-                    INFO("--rev-QISEND-TIMOUT\r\n");
+                    DEBUG("--rev-QISEND-TIMOUT\r\n");
             }
             
             break;
@@ -1208,11 +1227,9 @@ void MC20_Core_Run_Process(void)
             if (MC20_Msg_Queue_Get_Count() > 0)
             {
                 
-                MC20_Msg_Out_From_Queue(rev_msg_buf_temp,&rev_msg_buf_len); 
-                DEBUG("rev:%s\r\n",rev_msg_buf_temp);  
-                if (strstr((char *)rev_msg_buf_temp,"OK") > 0)
+                MC20_Msg_Out_From_Queue(rev_msg_buf_temp,&rev_msg_buf_len);                 
+                if (MC20_Core_Gps_GNSS_Data_Analysis((int8_t *)rev_msg_buf_temp)==DATA_OK||MC20_Core_Gps_GNSS_Data_Analysis((int8_t *)rev_msg_buf_temp)==DATA_ERROR)
                 {
-                    DEBUG("%s\r\n",rev_msg_buf_temp);
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gps_RevStatus_To_Be(Rev_Pass);
                     INFO("--rev-QGNSSRD_RMC-pass\r\n");
@@ -1221,7 +1238,6 @@ void MC20_Core_Run_Process(void)
                 {
 					mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gps_RevStatus_To_Be(Rev_Error);
-                    INFO("--rev-QGNSSRD_RMC-ERROR\r\n");
                 }
             }
             else if ((OS_Clock_GetSystemClock() - atcmd_time_record) > MC20_TIMEOUT_300MS)
@@ -1234,23 +1250,10 @@ void MC20_Core_Run_Process(void)
         }
         default:break;
     }
+/*
 
-    if (strstr((char *)rev_buf_temp,"CLOSED"))
-    {
-        INFO("--rev:serverclosed\r\n");
-        mc20_func_status_machine_init();
-        MC20_Gprs_Status_To_Be(MC20_CMD_QIOPEN);
-    }
-	else if(MC20_ATcmdMsg_Queue_Get_Count() > 0)
-	{
-		MC20_ATcmdMsg_Out_From_Queue(rev_buf_temp,&rev_buf_len); 
-		if (strstr((char *)rev_buf_temp,"CLOSED"))
-		{
-			INFO("--rev:serverclosed\r\n");
-			mc20_func_status_machine_init();
-			MC20_Gprs_Status_To_Be(MC20_CMD_QIOPEN);
-		}	
-	}
+*/
+
 	memcpy(rev_buf_temp,0,20);
 }
 
@@ -1278,9 +1281,22 @@ static void mc20_func_status_machine_init(void)
 {
     MC20_Status.GPRS_Status_Machine.status_machine = MC20_IDLE;
     MC20_Status.GPRS_Status_Machine.status_Rev = Rev_Wait;
+    MC20_Status.GPS_Status_Machine.status_machine = MC20_IDLE;
+    MC20_Status.GPS_Status_Machine.status_Rev = Rev_Wait;
     MC20_AT_Queue_Init();
 }
 
+static void mc20_gprs_status_machine_init(void)
+{
+    MC20_Status.GPRS_Status_Machine.status_machine = MC20_IDLE;
+    MC20_Status.GPRS_Status_Machine.status_Rev = Rev_Wait;	
+}
+
+static void mc20_gps_status_machine_init(void)
+{
+    MC20_Status.GPS_Status_Machine.status_machine = MC20_IDLE;
+    MC20_Status.GPS_Status_Machine.status_Rev = Rev_Wait;
+}
 /**
  * @}
  */

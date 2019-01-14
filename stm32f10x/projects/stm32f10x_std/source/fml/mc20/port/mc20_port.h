@@ -71,6 +71,7 @@ void MC20_Power_Pin_Rest(void);
 void MC20_CMD_Send(const char  * cmd_buf,uint8_t cmd_len);
 void MC20_Data_Send(uint8_t * data_buf,uint16_t data_len);
 
+
 /**
  * @}
  */

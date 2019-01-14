@@ -125,6 +125,16 @@ MC20_Queue_MSG_t MC20_Queue_Msg=
 
 };
 
+MC20_Queue_MSG_t MC20_Queue_Send_Msg=
+{
+    .Msgptr = Send,
+    .Count = 0,
+    .In = 0,
+    .Out = 0,
+    .Size = (sizeof(Send)/sizeof(Send[0])),
+
+};
+
 MC20_Queue_ATcmdMSG_t MC20_Queue_ATcmdMsg=
 {
     .ATcmdMsgptr = AT_Rev,
@@ -270,7 +280,50 @@ void MC20_AT_Queue_Init(void)
 }
 
 
+//-----------------------------------------------------------------------
 
+
+void MC20_Send_Msg_In_to_Queue(uint8_t *buf,uint16_t len)
+{
+    memcpy(MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.In].MsgBuf, buf, len);
+    MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.In].MsgBuf_Len = len;
+    MC20_Queue_Send_Msg.In ++;
+    MC20_Queue_Send_Msg.Count ++;
+    MC20_Queue_Send_Msg.In %= MC20_Queue_Send_Msg.Size;
+    MC20_Queue_Send_Msg.Count %= MC20_Queue_Send_Msg.Size;
+
+}
+/*
+void MC20_Send_Msg_Out_From_Queue(uint8_t *buf,uint16_t *len)
+{
+    if (MC20_Queue_Send_Msg.Count > 0)
+    {
+        memcpy(buf, MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf, MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf_Len);
+        *len =  MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf_Len;
+        MC20_Queue_Send_Msg.Count -- ;
+        MC20_Queue_Send_Msg.Out ++;
+        MC20_Queue_Send_Msg.Out %= MC20_Queue_Send_Msg.Size;
+    }
+}
+*/
+uint8_t * MC20_Send_Msg_Out_From_Queue(uint16_t *len)
+{
+    uint8_t * queue_addr = 0;
+    if (MC20_Queue_Send_Msg.Count > 0)
+    {
+        queue_addr = MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf;
+        //memcpy(buf, MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf, MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf_Len);
+        *len =  MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf_Len;
+        MC20_Queue_Send_Msg.Count -- ;
+        MC20_Queue_Send_Msg.Out ++;
+        MC20_Queue_Send_Msg.Out %= MC20_Queue_Send_Msg.Size;
+    }
+    return queue_addr;
+}
+uint8_t MC20_Send_Msg_Queue_Get_Count(void)
+{
+    return MC20_Queue_Send_Msg.Count;
+}
 /**
  * @}
  */

@@ -244,7 +244,12 @@ void MC20_CMD_Send(const char  * cmd_buf,uint8_t cmd_len)
 
 void MC20_Data_Send(uint8_t * data_buf,uint16_t data_len)
 {
-    
+    memcpy(g_Gprs_T_buf,data_buf ,data_len );
+    *(g_Gprs_T_buf + data_len) = 0x1a;
+    *(g_Gprs_T_buf + data_len + 1) = '\r';
+    *(g_Gprs_T_buf + data_len + 2) = '\n';
+    DMA_SetCurrDataCounter(DMA1_Channel4, data_len+3); 
+    DMA_Cmd(DMA1_Channel4, ENABLE); 
 }
 
 /**
