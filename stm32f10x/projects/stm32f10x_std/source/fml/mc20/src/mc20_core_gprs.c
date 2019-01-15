@@ -576,11 +576,11 @@ void MC20_GPRS_Start_Process(void)
                     break;
                 case Rev_Timeout:
                     rev_count ++;                  
-                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_GPRS_CONNECT_ING):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
+                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_CMD_QIOPEN):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
                     break;
                 case Rev_Error:
                     rev_count ++;                  
-                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_GPRS_CONNECT_ING):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
+                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_CMD_QIOPEN):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
                     break;
                 default:break;
             }

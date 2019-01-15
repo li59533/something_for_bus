@@ -113,7 +113,6 @@ void System_Load()
     
     SystemParam_Init();
     SystemParam_Apply();
-    SystemInfo_Init();
 }
 /**
  * @}

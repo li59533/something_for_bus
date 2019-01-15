@@ -2696,11 +2696,11 @@
         </option>
         <option>
           <name>OCOutputOverride</name>
-          <state>0</state>
+          <state>1</state>
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state>stm32f10x_std.hex</state>
+          <state>mc20.hex</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -2708,7 +2708,7 @@
         </option>
         <option>
           <name>OOCObjCopyEnable</name>
-          <state>0</state>
+          <state>1</state>
         </option>
       </data>
     </settings>
@@ -3116,6 +3116,9 @@
     <file>
       <name>$PROJ_DIR$\..\..\..\components\BSP\bsp_led.c</name>
     </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\components\BSP\bsp_unique_device_ID.c</name>
+    </file>
   </group>
   <group>
     <name>cmsis</name>
@@ -3175,6 +3178,9 @@
         <name>app</name>
         <file>
           <name>$PROJ_DIR$\..\source\fml\mc20\app\mc20_app.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\source\fml\mc20\app\mc20_parameter.c</name>
         </file>
       </group>
       <group>
@@ -3309,10 +3315,10 @@
       <group>
         <name>src</name>
         <file>
-          <name>$PROJ_DIR$\..\..\..\Components\MDL\osal\src\osal.h</name>
+          <name>$PROJ_DIR$\..\..\..\components\MDL\osal\src\osal.h</name>
         </file>
         <file>
-          <name>$PROJ_DIR$\..\..\..\Components\MDL\osal\src\osal_cfg.h</name>
+          <name>$PROJ_DIR$\..\..\..\components\MDL\osal\src\osal_cfg.h</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\..\..\components\MDL\osal\src\osal_clock.c</name>
@@ -3347,6 +3353,12 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\rttviewer\SEGGER_RTT_printf.c</name>
+      </file>
+    </group>
+    <group>
+      <name>zsproto_tcpip</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\components\MDL\zsproto\src\zsproto_tcpip\zsproto_tcpip.c</name>
       </file>
     </group>
     <file>

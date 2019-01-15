@@ -48,9 +48,10 @@
 #pragma pack(1)
 typedef struct
 {
-  
+    uint32_t * unique_id;
     uint8_t ip[4];
     uint16_t port;
+
     uint16_t crc;           /*!< 所有的参数结构体必须按字节对齐。且最后一个必须包
                                  含一个uint16_t类型的数据，该数据用于内部存储时的
                                  crc校验和存储，用户在保存参数时不用关心该值数值。*/

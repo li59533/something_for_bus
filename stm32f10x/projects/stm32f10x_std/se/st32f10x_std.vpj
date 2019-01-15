@@ -167,6 +167,8 @@
                 <F N="../../../components/BSP/bsp_init.h"/>
                 <F N="../../../components/BSP/bsp_led.c"/>
                 <F N="../../../components/BSP/bsp_led.h"/>
+                <F N="../../../components/BSP/bsp_unique_device_ID.c"/>
+                <F N="../../../components/BSP/bsp_unique_device_ID.h"/>
             </Folder>
             <Folder Name="MDL">
                 <Folder Name="clog">
@@ -589,6 +591,8 @@
                     <Folder Name="app">
                         <F N="../source/fml/mc20/app/mc20_app.c"/>
                         <F N="../source/fml/mc20/app/mc20_app.h"/>
+                        <F N="../source/fml/mc20/app/mc20_parameter.c"/>
+                        <F N="../source/fml/mc20/app/mc20_parameter.h"/>
                     </Folder>
                     <Folder Name="port">
                         <F N="../source/fml/mc20/port/mc20_port.c"/>
@@ -628,6 +632,14 @@
                     <F N="../source/fml/system/system_init.h"/>
                     <F N="../source/fml/system/system_param.c"/>
                     <F N="../source/fml/system/system_param.h"/>
+                </Folder>
+                <Folder Name="zsproto">
+                    <Folder Name="src">
+                        <Folder Name="zsproto_tcpip">
+                            <F N="../source/fml/zsproto/src/zsproto_tcpip/zsproto_tcpip.c"/>
+                            <F N="../source/fml/zsproto/src/zsproto_tcpip/zsproto_tcpip.h"/>
+                        </Folder>
+                    </Folder>
                 </Folder>
                 <F N="../source/fml/application_process.c"/>
                 <F N="../source/fml/application_process.h"/>

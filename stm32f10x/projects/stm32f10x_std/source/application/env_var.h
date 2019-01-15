@@ -40,8 +40,8 @@
 #define COM_USART_MAINTAIN  BSP_USART3
 
 /* stm32 flash ¥Ê¥¢µÿ÷∑∑÷≈‰±Ì */
-#define FLASH_PARAM_START_ADDR      (0x7F000)
-#define FLASH_PARAM_BACK_START_ADDR (0x7F800)
+#define FLASH_PARAM_START_ADDR      (0xF800)
+#define FLASH_PARAM_BACK_START_ADDR (0xFC00)
 /**
  * @}
  */

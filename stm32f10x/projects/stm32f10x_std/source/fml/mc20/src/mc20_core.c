@@ -21,6 +21,7 @@
 #include "clog.h"
 #include "mc20_core_gprs.h"
 #include "mc20_core_gps.h"
+#include "mc20_parameter.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -830,7 +831,9 @@ void MC20_Core_Run_Process(void)
         }
         case MC20_CMD_QIOPEN:
         {
-            MC20_CMD_Send(MC20_CMD_QIOPEN_BUF,strlen(MC20_CMD_QIOPEN_BUF));            
+            sprintf(MC20_CMD_QIOPEN_USER_BUF, "AT+QIOPEN=\"TCP\",\"%d.%d.%d.%d\",\"%d\"\r\n", \
+            g_MC20Parameter_Config.ip[0],g_MC20Parameter_Config.ip[1],g_MC20Parameter_Config.ip[2],g_MC20Parameter_Config.ip[3],g_MC20Parameter_Config.port);
+            MC20_CMD_Send(MC20_CMD_QIOPEN_USER_BUF,strlen(MC20_CMD_QIOPEN_USER_BUF));            
             mc20_core_status_to_be(MC20_CMD_QIOPEN_Resp);
             atcmd_time_record = OS_Clock_GetSystemClock();
             DEBUG("--cmd-QIOPEN\r\n");

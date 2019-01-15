@@ -134,6 +134,8 @@ extern const char MC20_CMD_QGEPOAID_BUF[];
 extern const char MC20_CMD_QGNSSRD_BUF[];
 extern const char MC20_CMD_QGNSSRD_RMC_BUF[];
 
+extern       char MC20_CMD_QIOPEN_USER_BUF[60];
+
 /**
  * @}
  */

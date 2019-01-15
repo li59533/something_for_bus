@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        application_process.c
+ * @file        mc20_parameter.c
  * @author
  * @version   v0.1.0
  * @date        
@@ -10,21 +10,20 @@
  *
  **************************************************************************************************
  */
-#include "application_process.h"
-#include "mc20_ATcmd.h"
-#include "mc20_core_gps.h"
+#include "mc20_parameter.h"
+#include "self_def.h"
 /**
  * @addtogroup    XXX 
  * @{  
  */
 
 /**
- * @addtogroup    application_process_Modules 
+ * @addtogroup    mc20_parameter_Modules 
  * @{  
  */
 
 /**
- * @defgroup      application_process_IO_Defines 
+ * @defgroup      mc20_parameter_IO_Defines 
  * @brief         
  * @{  
  */
@@ -34,7 +33,7 @@
  */
 
 /**
- * @defgroup      application_process_Macros_Defines 
+ * @defgroup      mc20_parameter_Macros_Defines 
  * @brief         
  * @{  
  */
@@ -44,7 +43,7 @@
  */
 
 /**
- * @defgroup      application_process_Constants_Defines 
+ * @defgroup      mc20_parameter_Constants_Defines 
  * @brief         
  * @{  
  */
@@ -54,7 +53,16 @@
  */
 
 /**
- * @defgroup      application_process_Private_Types
+ * @defgroup      mc20_parameter_Private_Types
+ * @brief         
+ * @{  
+ */
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      mc20_parameter_Private_Variables 
  * @brief         
  * @{  
  */
@@ -64,7 +72,17 @@
  */
 
 /**
- * @defgroup      application_process_Private_Variables 
+ * @defgroup      mc20_parameter_Public_Variables 
+ * @brief         
+ * @{  
+ */
+MC20Parameter_Config_t g_MC20Parameter_Config;
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      mc20_parameter_Private_FunctionPrototypes 
  * @brief         
  * @{  
  */
@@ -74,49 +92,12 @@
  */
 
 /**
- * @defgroup      application_process_Public_Variables 
+ * @defgroup      mc20_parameter_Functions 
  * @brief         
  * @{  
  */
 
 /**
- * @}
- */
-
-/**
- * @defgroup      application_process_Private_FunctionPrototypes 
- * @brief         
- * @{  
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup      application_process_Functions 
- * @brief         
- * @{  
- */
-void App_Open_Func(void)
-{
-;
-}
-void App_Scan_Status_Loop(void)
-{
-
-    if (MC20_Gps_Status_Is()==MC20_GPS_GNSS_OK)
-    {
-
-    }
-}
-
-void App_Logic_Func_Proccess(void)
-{
-
-}
-/** 
- *  
  * @}
  */
 

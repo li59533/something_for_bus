@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        application_process.c
+ * @file        zsproto_p2p.c
  * @author
  * @version   v0.1.0
  * @date        
@@ -10,21 +10,20 @@
  *
  **************************************************************************************************
  */
-#include "application_process.h"
-#include "mc20_ATcmd.h"
-#include "mc20_core_gps.h"
+#include "zsproto_p2p.h"
+
 /**
  * @addtogroup    XXX 
  * @{  
  */
 
 /**
- * @addtogroup    application_process_Modules 
+ * @addtogroup    zsproto_p2p_Modules 
  * @{  
  */
 
 /**
- * @defgroup      application_process_IO_Defines 
+ * @defgroup      zsproto_p2p_IO_Defines 
  * @brief         
  * @{  
  */
@@ -34,7 +33,7 @@
  */
 
 /**
- * @defgroup      application_process_Macros_Defines 
+ * @defgroup      zsproto_p2p_Macros_Defines 
  * @brief         
  * @{  
  */
@@ -44,7 +43,7 @@
  */
 
 /**
- * @defgroup      application_process_Constants_Defines 
+ * @defgroup      zsproto_p2p_Constants_Defines 
  * @brief         
  * @{  
  */
@@ -54,7 +53,7 @@
  */
 
 /**
- * @defgroup      application_process_Private_Types
+ * @defgroup      zsproto_p2p_Private_Types
  * @brief         
  * @{  
  */
@@ -64,7 +63,7 @@
  */
 
 /**
- * @defgroup      application_process_Private_Variables 
+ * @defgroup      zsproto_p2p_Private_Variables 
  * @brief         
  * @{  
  */
@@ -74,7 +73,7 @@
  */
 
 /**
- * @defgroup      application_process_Public_Variables 
+ * @defgroup      zsproto_p2p_Public_Variables 
  * @brief         
  * @{  
  */
@@ -84,7 +83,7 @@
  */
 
 /**
- * @defgroup      application_process_Private_FunctionPrototypes 
+ * @defgroup      zsproto_p2p_Private_FunctionPrototypes 
  * @brief         
  * @{  
  */
@@ -94,29 +93,12 @@
  */
 
 /**
- * @defgroup      application_process_Functions 
+ * @defgroup      zsproto_p2p_Functions 
  * @brief         
  * @{  
  */
-void App_Open_Func(void)
-{
-;
-}
-void App_Scan_Status_Loop(void)
-{
 
-    if (MC20_Gps_Status_Is()==MC20_GPS_GNSS_OK)
-    {
-
-    }
-}
-
-void App_Logic_Func_Proccess(void)
-{
-
-}
-/** 
- *  
+/**
  * @}
  */
 

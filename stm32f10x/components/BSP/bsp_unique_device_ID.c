@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        application_process.c
+ * @file        bsp_unique_device_ID.c
  * @author
  * @version   v0.1.0
  * @date        
@@ -10,21 +10,22 @@
  *
  **************************************************************************************************
  */
-#include "application_process.h"
-#include "mc20_ATcmd.h"
-#include "mc20_core_gps.h"
+#include "bsp_unique_device_ID.h"
+#include "self_def.h"
+#include "clog.h"
+#include "string.h"
 /**
  * @addtogroup    XXX 
  * @{  
  */
 
 /**
- * @addtogroup    application_process_Modules 
+ * @addtogroup    bsp_unique_device_ID_Modules 
  * @{  
  */
 
 /**
- * @defgroup      application_process_IO_Defines 
+ * @defgroup      bsp_unique_device_ID_IO_Defines 
  * @brief         
  * @{  
  */
@@ -34,7 +35,7 @@
  */
 
 /**
- * @defgroup      application_process_Macros_Defines 
+ * @defgroup      bsp_unique_device_ID_Macros_Defines 
  * @brief         
  * @{  
  */
@@ -44,7 +45,7 @@
  */
 
 /**
- * @defgroup      application_process_Constants_Defines 
+ * @defgroup      bsp_unique_device_ID_Constants_Defines 
  * @brief         
  * @{  
  */
@@ -54,7 +55,7 @@
  */
 
 /**
- * @defgroup      application_process_Private_Types
+ * @defgroup      bsp_unique_device_ID_Private_Types
  * @brief         
  * @{  
  */
@@ -64,7 +65,18 @@
  */
 
 /**
- * @defgroup      application_process_Private_Variables 
+ * @defgroup      bsp_unique_device_ID_Private_Variables 
+ * @brief         
+ * @{  
+ */
+uint32_t *  unique_ID_32_addr = (uint32_t * )0x1ffff7e8;
+char g_Unique_ID[9];
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      bsp_unique_device_ID_Public_Variables 
  * @brief         
  * @{  
  */
@@ -74,7 +86,7 @@
  */
 
 /**
- * @defgroup      application_process_Public_Variables 
+ * @defgroup      bsp_unique_device_ID_Private_FunctionPrototypes 
  * @brief         
  * @{  
  */
@@ -84,39 +96,21 @@
  */
 
 /**
- * @defgroup      application_process_Private_FunctionPrototypes 
+ * @defgroup      bsp_unique_device_ID_Functions 
  * @brief         
  * @{  
  */
-
-/**
- * @}
- */
-
-/**
- * @defgroup      application_process_Functions 
- * @brief         
- * @{  
- */
-void App_Open_Func(void)
-{
-;
-}
-void App_Scan_Status_Loop(void)
-{
-
-    if (MC20_Gps_Status_Is()==MC20_GPS_GNSS_OK)
-    {
-
-    }
+void BSP_Unique_Init(void)
+{    
+	sprintf(g_Unique_ID,"%08X",*unique_ID_32_addr);
+	INFO("g_Unique_ID:%s\r\n",g_Unique_ID);
 }
 
-void App_Logic_Func_Proccess(void)
+char * BSP_Unique_Get_Addr(void)
 {
-
+	return g_Unique_ID;
 }
-/** 
- *  
+/**
  * @}
  */
 

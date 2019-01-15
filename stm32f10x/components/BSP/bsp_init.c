@@ -17,6 +17,7 @@
 #include "cshell_port.h"
 #include "clog.h"
 #include "BSP_Init.h"
+#include "bsp_unique_device_ID.h"
 
 /**
  * @addtogroup    XXX 
@@ -117,6 +118,7 @@ void BSP_Init(void)
    // CLog_Init(CLogAppender_Serial);
     CLog_Init(CLogAppender_RTT);
     INFO("start\r\n");
+    BSP_Unique_Init();
 }
 /**
  * @}

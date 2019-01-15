@@ -265,6 +265,7 @@ void MC20_GPS_Start_Process(void)
         }
         case MC20_GPS_GNSS_OK:
         {
+            /*
             if (OS_Clock_GetSeconds() > 0xffffff00)
             {
                 OS_Clock_SetSeconds(0);
@@ -279,6 +280,7 @@ void MC20_GPS_Start_Process(void)
             INFO("ground_rate:%s\r\n", GPS_GNSS_DATA.ground_rate);
             INFO("ground_direction:%s\r\n", GPS_GNSS_DATA.ground_direction);
             MC20_Gps_Status_To_Be(MC20_GPS_GNSS_OK_Resp);
+            */
             break;
         }
         case MC20_GPS_GNSS_OK_Resp:
