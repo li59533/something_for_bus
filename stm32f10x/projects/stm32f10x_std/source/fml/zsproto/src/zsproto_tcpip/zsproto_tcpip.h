@@ -12,7 +12,8 @@
  */
 #ifndef _ZSPROTO_TCPIP_H_
 #define _ZSPROTO_TCPIP_H_
-
+#include "self_def.h"
+#include "mc20_core_gps.h"
 /**
  * @addtogroup    XXX 
  * @{ 
@@ -59,49 +60,26 @@ typedef enum
 }ZSCmd_e;
 
 #pragma pack(1)
-typedef struct
-{
-    union
-    {
-        struct
-        {
-            uint8_t AckReq:1;
-            uint8_t Sec:1;
-            uint8_t Pending:1;
-            uint8_t Trans:1;
-            uint8_t reserve1:2;
-            uint8_t FrameType:2;
-            uint8_t reserve2:3;
-            uint8_t Gateway:1;
-            uint8_t ConnType:4;
-        }bitfield;
-        uint8_t Value;
-    }FCF;
-    uint8_t  Seq;
-    uint16_t Model;
-    uint32_t DeviceId;
-    uint8_t  Cmd;
-    uint8_t* CmdPayload;
-}ZSProtoAPDU_TCPIP_t; // app protocol data unit
-#pragma pack()
 
 typedef struct
 {
     uint8_t 	Header; // 帧头
     uint16_t 	Length; // 数据包总长度
-    {
-        uint16_t  FCF;	// 帧控制域
-        uint8_t   Seq;	// 序列号
-        uint16_t  Model;	// 发送方设备型号
-        uint32_t  DeviceId;	// 发送方设备ID
-        {
-            uint8_t Cmd; // 命令类型
-            uint8_t *CmdPayload; // 命令内容 
-        }
-    }
+    
+	uint16_t  FCF;	// 帧控制域
+	uint8_t   Seq;	// 序列号
+	uint16_t  Model;	// 发送方设备型号
+	uint32_t  DeviceId;	// 发送方设备ID
+	
+	uint8_t  Cmd; // 命令类型
+	//uint8_t *CmdPayload; // 命令内容 
+    
     uint8_t FCS; // 帧校验
     uint8_t Footer; // 帧尾
 }ZSProto_t;
+#pragma pack()
+
+
 /**
  * zsproto cmd define 
  */
@@ -122,11 +100,14 @@ typedef struct
 /**
  * @}
  */
-
+extern int8_t g_Zsproto_To_Server_Package[];
 /**
  * @defgroup      zsproto_tcpip_Exported_Functions 
  * @{  
  */
+void Zsproto_Make_Payload(GPS_GNSS_DATA_t * GPS_GNSS_DATA_buf,uint8_t * otherdata);
+
+uint16_t Zsproto_Make_Package_To_Server(int8_t * pBuf,uint16_t len,uint32_t uniqueID);
 
 /**
  * @}

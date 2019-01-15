@@ -17,6 +17,8 @@
 #include "clog.h"
 #include "osal_clock.h"
 #include "mc20_core_gprs.h"
+#include "mc20_parameter.h"
+#include "zsproto_tcpip.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -42,17 +44,7 @@
  * @brief         
  * @{  
  */
-typedef struct
-{
-    char postion_status[2];
-    char lattude_value[10];
-    char lattude_hemisphere[2];
-    char longitude_value[11];
-    char longitude_hemisphere[2];
-    char ground_rate[6];
-    char ground_direction[6];
 
-}GPS_GNSS_DATA_t;
 /**
  * @}
  */
@@ -265,7 +257,7 @@ void MC20_GPS_Start_Process(void)
         }
         case MC20_GPS_GNSS_OK:
         {
-            /*
+            
             if (OS_Clock_GetSeconds() > 0xffffff00)
             {
                 OS_Clock_SetSeconds(0);
@@ -280,14 +272,17 @@ void MC20_GPS_Start_Process(void)
             INFO("ground_rate:%s\r\n", GPS_GNSS_DATA.ground_rate);
             INFO("ground_direction:%s\r\n", GPS_GNSS_DATA.ground_direction);
             MC20_Gps_Status_To_Be(MC20_GPS_GNSS_OK_Resp);
-            */
+            
             break;
         }
         case MC20_GPS_GNSS_OK_Resp:
         {
             if((OS_Clock_GetSeconds() - time_temp )> 5)
             {
-                MC20_Send_Data_To_Server("nihao\r\n",7);//test
+
+
+                Test_zsproto();//test
+                //MC20_Send_Data_To_Server("nihao\r\n",7);//test
                 DEBUG("Seconds:%d,time:%d\r\n",OS_Clock_GetSeconds(),time_temp);
                 MC20_Gps_Status_To_Be(MC20_GPS_QGNSSRD_RMC);
             }
@@ -301,6 +296,17 @@ void MC20_GPS_Start_Process(void)
             break;
         }
     }
+}
+
+
+void Test_zsproto(void)
+{
+    uint16_t package_len = 0;
+    Zsproto_Make_Payload(&GPS_GNSS_DATA,0);
+
+
+    package_len =  Zsproto_Make_Package_To_Server(g_Zsproto_To_Server_Package, strlen((char const *)g_Zsproto_To_Server_Package), g_MC20Parameter_Config.unique_id);
+    MC20_Send_Data_To_Server((uint8_t *)g_Zsproto_To_Server_Package,package_len);
 }
 
 

@@ -27,7 +27,17 @@
  * @defgroup      mc20_core_gps_Exported_Macros 
  * @{  
  */
+typedef struct
+{
+    char postion_status[2];
+    char lattude_value[10];
+    char lattude_hemisphere[2];
+    char longitude_value[11];
+    char longitude_hemisphere[2];
+    char ground_rate[6];
+    char ground_direction[6];
 
+}GPS_GNSS_DATA_t;
 /**
  * @}
  */
@@ -70,6 +80,18 @@ int8_t MC20_Core_GPS_DATA_CheckSum_XOR(int8_t * checkbuf,uint8_t checklen);
 int8_t MC20_Core_Gps_GNSS_Data_Analysis(int8_t * gnss_data_buf);
 uint8_t MC20_Gps_Status_Is(void);
 void MC20_Gps_Flash_GNSS_Data(void);
+
+
+
+
+
+
+
+
+
+
+
+void Test_zsproto(void);
 /**
  * @}
  */

@@ -2405,6 +2405,7 @@
           <state>$PROJ_DIR$\..\source\fml\mc20\src</state>
           <state>$PROJ_DIR$\..\source\application\mc20_task</state>
           <state>$PROJ_DIR$\..\source\application\odb_task</state>
+          <state>$PROJ_DIR$\..\source\fml\zsproto\src\zsproto_tcpip</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -3238,6 +3239,12 @@
         <name>$PROJ_DIR$\..\source\fml\system\system_param.h</name>
       </file>
     </group>
+    <group>
+      <name>zsproto</name>
+      <file>
+        <name>$PROJ_DIR$\..\source\fml\zsproto\src\zsproto_tcpip\zsproto_tcpip.c</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\source\fml\application_process.c</name>
     </file>
@@ -3353,12 +3360,6 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\components\MDL\rttviewer\SEGGER_RTT_printf.c</name>
-      </file>
-    </group>
-    <group>
-      <name>zsproto_tcpip</name>
-      <file>
-        <name>$PROJ_DIR$\..\..\..\components\MDL\zsproto\src\zsproto_tcpip\zsproto_tcpip.c</name>
       </file>
     </group>
     <file>
