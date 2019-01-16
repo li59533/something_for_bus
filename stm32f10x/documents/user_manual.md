@@ -19,29 +19,57 @@ typedef struct
             uint8_t *CmdPayload; // 命令内容 
         }
     }
-    uint8_t FCS; // 帧校验
+    uint8_t FCS; // 帧校验15
     uint8_t Footer; // 帧尾
 }ZSProto_t;
 ```
 **Header:**0x5A
 **Length:**Length字段表示数据包总长度，从Header字段到Footer字段
-**FCF:**默认0
-**Seq:**默认0
-**Model:**默认0
+**FCF:**	默认0
+**Seq:**	默认0
+**Model:**	默认0
 **DeviceID:**32bit
 **Cmd:**
 **Cmdpayload:**
+**FCS:**	校验位，采用和校验方式，检验范围为`FCF`到`CmdPayload` 。
+**Footer:**0x53
+
+### 1.2 Payload字段
+结构体格式采用TLV形式： 
+**"T":**target
+**"L":**length
+**"V":**value
+
 ```
 typedef struct
 {
-    char lattude_value[10];//纬度
-    char lattude_hemisphere[2];//纬度半球
-    char longitude_value[11];//经度
-    char longitude_hemisphere[2];//经度半球
-}GPS_GNSS_DATA_t;
+	unsigned char target;
+	unsigned char length;
+	char value[25];
+}Zsproto_payload_TLV_t;
+
+typedef struct
+{
+	unsigned char count;
+	Zsproto_payload_TLV_t Zsproto_TLV[5];
+}Zsproto_payload_t;
 ```
-**FCS:**校验位，采用和校验方式，检验范围为`FCF`到`CmdPayload` 。
-**Footer:**0x53
+
+**T:**
+|关键字|说明|
+|---|---|
+|01|纬度|
+|02|纬度半球|
+|03|经度|
+|04|经度半球|
+|05|里程|
+|||
+|||
+|||
+
+
+
+
 
 #### 1.1.1 设备扫描
 ```

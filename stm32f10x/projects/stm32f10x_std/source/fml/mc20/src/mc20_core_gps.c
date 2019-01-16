@@ -257,7 +257,7 @@ void MC20_GPS_Start_Process(void)
         }
         case MC20_GPS_GNSS_OK:
         {
-            
+           
             if (OS_Clock_GetSeconds() > 0xffffff00)
             {
                 OS_Clock_SetSeconds(0);
@@ -265,23 +265,22 @@ void MC20_GPS_Start_Process(void)
             time_temp = OS_Clock_GetSeconds();
 
             INFO("postion_status:%s\r\n", GPS_GNSS_DATA.postion_status);
+/*  
             INFO("longitude_value:%s\r\n", GPS_GNSS_DATA.longitude_value);
             INFO("longitude_hemisphere:%s\r\n", GPS_GNSS_DATA.longitude_hemisphere);
             INFO("lattude_value:%s\r\n", GPS_GNSS_DATA.lattude_value);
             INFO("lattude_hemisphere:%s\r\n", GPS_GNSS_DATA.lattude_hemisphere);
             INFO("ground_rate:%s\r\n", GPS_GNSS_DATA.ground_rate);
             INFO("ground_direction:%s\r\n", GPS_GNSS_DATA.ground_direction);
+*/  
             MC20_Gps_Status_To_Be(MC20_GPS_GNSS_OK_Resp);
-            
+
             break;
         }
         case MC20_GPS_GNSS_OK_Resp:
         {
             if((OS_Clock_GetSeconds() - time_temp )> 5)
-            {
-
-
-                Test_zsproto();//test
+            {              
                 //MC20_Send_Data_To_Server("nihao\r\n",7);//test
                 DEBUG("Seconds:%d,time:%d\r\n",OS_Clock_GetSeconds(),time_temp);
                 MC20_Gps_Status_To_Be(MC20_GPS_QGNSSRD_RMC);
@@ -297,18 +296,6 @@ void MC20_GPS_Start_Process(void)
         }
     }
 }
-
-
-void Test_zsproto(void)
-{
-    uint16_t package_len = 0;
-    Zsproto_Make_Payload(&GPS_GNSS_DATA,0);
-
-
-    package_len =  Zsproto_Make_Package_To_Server(g_Zsproto_To_Server_Package, strlen((char const *)g_Zsproto_To_Server_Package), g_MC20Parameter_Config.unique_id);
-    MC20_Send_Data_To_Server((uint8_t *)g_Zsproto_To_Server_Package,package_len);
-}
-
 
 void MC20_Core_Gps_RevStatus_To_Be(uint8_t rev_status)
 {

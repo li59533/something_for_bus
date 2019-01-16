@@ -293,19 +293,7 @@ void MC20_Send_Msg_In_to_Queue(uint8_t *buf,uint16_t len)
     MC20_Queue_Send_Msg.Count %= MC20_Queue_Send_Msg.Size;
 
 }
-/*
-void MC20_Send_Msg_Out_From_Queue(uint8_t *buf,uint16_t *len)
-{
-    if (MC20_Queue_Send_Msg.Count > 0)
-    {
-        memcpy(buf, MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf, MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf_Len);
-        *len =  MC20_Queue_Send_Msg.Msgptr[MC20_Queue_Send_Msg.Out].MsgBuf_Len;
-        MC20_Queue_Send_Msg.Count -- ;
-        MC20_Queue_Send_Msg.Out ++;
-        MC20_Queue_Send_Msg.Out %= MC20_Queue_Send_Msg.Size;
-    }
-}
-*/
+
 uint8_t * MC20_Send_Msg_Out_From_Queue(uint16_t *len)
 {
     uint8_t * queue_addr = 0;

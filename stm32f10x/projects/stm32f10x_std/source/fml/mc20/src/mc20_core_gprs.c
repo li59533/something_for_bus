@@ -635,8 +635,9 @@ void MC20_Gprs_Status_To_Be(uint8_t gprs_status)
 
 void MC20_Send_Data_To_Server(uint8_t * send_buf,uint16_t send_len)
 {
-    MC20_ATcmd_In_to_Queue(MC20_CMD_QISEND);
-    MC20_Send_Msg_In_to_Queue(send_buf,send_len);
+    //MC20_ATcmd_In_to_Queue(MC20_CMD_QISEND);
+    MC20_Gprs_Status_To_Be(MC20_CMD_QISEND);
+	MC20_Send_Msg_In_to_Queue(send_buf,send_len);
 }
 
 uint8_t MC20_Gprs_Status_Is(void)

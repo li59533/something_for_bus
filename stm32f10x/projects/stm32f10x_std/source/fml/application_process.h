@@ -63,8 +63,7 @@
  * @defgroup      application_process_Exported_Functions 
  * @{  
  */
-void App_Open_Func(void);
-void App_Scan_Status_Loop(void);
+void App_Run_Loop(void);
 /**
  * @}
  */

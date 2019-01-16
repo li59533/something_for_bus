@@ -28,7 +28,14 @@
  * @defgroup      zsproto_tcpip_Exported_Macros 
  * @{  
  */
-
+#define PROTO_OFFECT_HEADER     0
+#define PROTO_OFFECT_LENGTH     1
+#define PROTO_OFFECT_FCF        3
+#define PROTO_OFFECT_SEQ        5
+#define PROTO_OFFECT_MODEL      6
+#define PROTO_OFFECT_DEVICE_ID  8
+#define PROTO_OFFECT_CMD       12
+#define PROTO_OFFECT_PAYLOAD       13
 /**
  * @}
  */
@@ -77,6 +84,23 @@ typedef struct
     uint8_t FCS; // ֡У��
     uint8_t Footer; // ֡β
 }ZSProto_t;
+
+typedef struct
+{
+	unsigned char target;
+	unsigned char length;
+	char value[20];
+}Zsproto_payload_TLV_t;
+
+typedef struct
+{
+	unsigned char count;
+	Zsproto_payload_TLV_t Zsproto_TLV[10];
+}Zsproto_payload_t;
+
+
+
+
 #pragma pack()
 
 
@@ -101,14 +125,13 @@ typedef struct
  * @}
  */
 extern int8_t g_Zsproto_To_Server_Package[];
+extern Zsproto_payload_t Zsproto_payload;
 /**
  * @defgroup      zsproto_tcpip_Exported_Functions 
  * @{  
  */
-void Zsproto_Make_Payload(GPS_GNSS_DATA_t * GPS_GNSS_DATA_buf,uint8_t * otherdata);
-
-uint16_t Zsproto_Make_Package_To_Server(int8_t * pBuf,uint16_t len,uint32_t uniqueID);
-
+void Zsproto_Add_To_TLV(uint8_t target,uint8_t length,char * value);
+int8_t * Zsproto_Make_Package_To_Server( uint32_t uniqueID,Zsproto_payload_t * Zsproto_payload,int8_t * package,uint16_t *package_len);
 /**
  * @}
  */

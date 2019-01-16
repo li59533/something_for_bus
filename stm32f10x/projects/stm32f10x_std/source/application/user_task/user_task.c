@@ -108,7 +108,7 @@ uint8_t g_UserTask_Id = 0;
 void UserTask_Init(uint8_t taskId)
 {
     g_UserTask_Id = taskId;
-    App_Open_Func();
+    UserTask_Send_Event(USER_TASK_APP_RUN_LOOP_EVENT);
 }
 
 osal_event_t UserTask_Process(uint8_t taskid,osal_event_t events)
@@ -119,10 +119,11 @@ osal_event_t UserTask_Process(uint8_t taskid,osal_event_t events)
         return events ^ USER_TASK_SYSTEMRESET_EVENT;
     }
     
-    if (events & USER_TASK_SCAN_STATUS_LOOP_EVENT)
+    if (events & USER_TASK_APP_RUN_LOOP_EVENT)
     {
-        App_Scan_Status_Loop();
-        return events ^ USER_TASK_SCAN_STATUS_LOOP_EVENT;
+        App_Run_Loop();
+        OS_Timer_Start(taskid,USER_TASK_APP_RUN_LOOP_EVENT,30000);
+        return events ^ USER_TASK_APP_RUN_LOOP_EVENT;
     }
     return 0;
 }

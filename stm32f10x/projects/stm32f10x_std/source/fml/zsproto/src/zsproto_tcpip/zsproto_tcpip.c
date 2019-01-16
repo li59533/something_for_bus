@@ -77,6 +77,11 @@
  * @brief         
  * @{  
  */
+
+Zsproto_payload_t Zsproto_payload = 
+{
+    .count = 0,
+};
 int8_t g_Zsproto_To_Server_Package[100]={0};
 
 /**
@@ -98,54 +103,60 @@ int8_t g_Zsproto_To_Server_Package[100]={0};
  * @brief         
  * @{  
  */
-void Zsproto_Make_Payload(GPS_GNSS_DATA_t * GPS_GNSS_DATA_buf,uint8_t * otherdata)
+void Zsproto_Add_To_TLV(uint8_t target,uint8_t length,char * value)
 {
-	int count = 0;
-    sprintf((char *)g_Zsproto_To_Server_Package, "%s,%s,%s,%s", GPS_GNSS_DATA_buf->lattude_value,\
-                GPS_GNSS_DATA_buf->lattude_hemisphere,\
-                GPS_GNSS_DATA_buf->longitude_value,\
-                GPS_GNSS_DATA_buf->longitude_hemisphere);
-	count = strlen(g_Zsproto_To_Server_Package);
+    
+    Zsproto_payload.Zsproto_TLV[Zsproto_payload.count].target = target;
+    Zsproto_payload.Zsproto_TLV[Zsproto_payload.count].length = length;
+    memcpy(Zsproto_payload.Zsproto_TLV[Zsproto_payload.count].value,value,length);
+	Zsproto_payload.count ++;
+}
+int8_t * Zsproto_Make_Package_To_Server( uint32_t uniqueID,Zsproto_payload_t * Zsproto_payload,int8_t * package,uint16_t *package_len)
+{
+	uint8_t  i = 0;
+	uint8_t  j = 0;
+    int8_t * ptr = package;
+    *(ptr + PROTO_OFFECT_HEADER)    = 0X5A;
+    *(ptr + PROTO_OFFECT_FCF)       = 0;
+    *(ptr + PROTO_OFFECT_SEQ)       = 0;
+    *(ptr + PROTO_OFFECT_MODEL)     = 0;
+    *(uint32_t *)(ptr + PROTO_OFFECT_DEVICE_ID) = uniqueID;
+    *(ptr + PROTO_OFFECT_CMD)       = 0;
+    ptr += PROTO_OFFECT_PAYLOAD;
+	while (Zsproto_payload->count--)
+	{
+        *(ptr + i) = Zsproto_payload->Zsproto_TLV[j].target;
+        *(ptr + i + 1) = Zsproto_payload->Zsproto_TLV[j].length;
+		memcpy(ptr + i + 2, Zsproto_payload->Zsproto_TLV[j].value, Zsproto_payload->Zsproto_TLV[j].length);
+		i = i + 2 + Zsproto_payload->Zsproto_TLV[j].length ;
+		j ++;
+	}
+    ptr = package;
+	
+    *(ptr + PROTO_OFFECT_LENGTH) = (uint8_t)((i + 15) >> 8);
+	*(ptr + 1 + PROTO_OFFECT_LENGTH) = (uint8_t)((i + 15) & 0x00ff);
+	
+    *package_len = i + 15;
+
+    for (i = 0;i <*package_len;i++)
+    {
+        *(ptr + *package_len - 2) += *(ptr+PROTO_OFFECT_FCF+i+1);
+    }
+    *(ptr + *package_len - 1) = 0x53;
+
+    if (Zsproto_payload->count > 5)
+    {
+        Zsproto_payload->count = 0;
+    }
+    return package;
 }
 
-uint16_t Zsproto_Make_Package_To_Server(int8_t * pBuf,uint16_t len,uint32_t uniqueID)
+void Zsproto_Data_Analysis(uint8_t *package,uint16_t package_len)
 {
-	uint16_t i = 0;
-	uint16_t len_temp = len;
-    while (len_temp --)
-    {
-        *(pBuf + len_temp + 12) = *(pBuf + len_temp);
-    }
-
-    *(pBuf) = 0x5A; //header
-
-    *(pBuf+1) = (len +15)>>8;            //len
-    *(pBuf+2) = (len +15)&0x00ff;
-
-    *(pBuf+3) = 0;//fcf
-    *(pBuf+4) = 0;
-
-    *(pBuf+5) = 0;//seq
-
-    *(pBuf+6) = 0;//model 
-    *(pBuf+7) = 0;
-
-    *(pBuf+8) = (int8_t)(uniqueID >> 24);
-    *(pBuf+9) = (int8_t)((uniqueID & 0x00ff0000) >> 16);
-    *(pBuf+10) = (int8_t)((uniqueID & 0x0000ff00) >> 8);
-    *(pBuf+11) = (int8_t)((uniqueID & 0x000000ff));
-
-    *(pBuf+12) = 0;//Cmd
-
-
-    for (i = 0;i < (len + 10);i++)
-    {
-        *(pBuf + len + 13) += *(pBuf+i+1);
-    }
-    *(pBuf + len + 14) = 0x53;
-
-    return len + 15;
+    uint8_t * ptr = package;
+    
 }
+
 
 /**
  * @}

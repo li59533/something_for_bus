@@ -30,6 +30,7 @@
 
 #define USER_TASK_SYSTEMRESET_EVENT         0x0001
 #define USER_TASK_SCAN_STATUS_LOOP_EVENT    0x0002
+#define USER_TASK_APP_RUN_LOOP_EVENT        0x0004
 /**
  * @}
  */
