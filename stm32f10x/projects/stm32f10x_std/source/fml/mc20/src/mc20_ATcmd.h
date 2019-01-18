@@ -30,7 +30,7 @@
 typedef enum
 {
     MC20_IDLE  =0,
-
+//---------mc20_device--------
     MC20_CMD_AT_REQ,
     MC20_CMD_AT_RESP,
     MC20_CMD_ATE_REQ,
@@ -39,6 +39,12 @@ typedef enum
     MC20_CMD_IPR_RESP,
     MC20_CMD_CSQ_REQ,
     MC20_CMD_CSQ_RESP,
+    MC20_HAL_RESTART_REQ,
+    MC20_HAL_RESTART_RESP,
+//----------------------------
+
+//---------mc20_GPRS----------
+
     GPRS_CMD_CPIN_REQ,
     GPRS_CMD_CPIN_RESP,
     GPRS_CMD_CSQ_REQ,
@@ -73,36 +79,8 @@ typedef enum
     GPRS_CMD_QIOPEN_RESP,
     GPRS_CMD_QISACT_REQ,
     GPRS_CMD_QISACT_RESP,
+//-------------------------------
 
-
-    MC20_CMD_QIOPEN_Req,
-    MC20_CMD_QIOPEN_Resp,
-    MC20_CMD_QISEND_Req,
-    MC20_CMD_QISEND_Resp,
-    MC20_CMD_QISACK_Req,
-    MC20_CMD_QISACK_Resp,
-    MC20_CMD_QPOWD_Req,
-    MC20_CMD_QPOWD_Resp,
-    MC20_HAL_RESTART_Req,
-    MC20_HAL_RESTART_Resp,
-    MC20_GPRS_CONNECT_ING_Req,
-    MC20_GPRS_CONNECT_ING_Resp,
-    MC20_GPS_QGNSSC_Req,
-    MC20_GPS_QGNSSC_Resp,
-    MC20_GPS_QIFGCNT_Req,
-    MC20_GPS_QIFGCNT_Resp,
-    MC20_GPS_QGNSSTS_Req,
-    MC20_GPS_QGNSSTS_Resp,
-    MC20_GPS_QGNSSEPO_Req,
-    MC20_GPS_QGNSSEPO_Resp,
-    MC20_GPS_QGEPOAID_Req,
-    MC20_GPS_QGEPOAID_Resp,
-    MC20_GPS_QGNSSRD_Req,
-    MC20_GPS_QGNSSRD_Resp,
-    MC20_GPS_QGNSSRD_RMC_Req,
-    MC20_GPS_QGNSSRD_RMC_Resp,
-    MC20_GPS_GNSS_OK_Req,
-    MC20_GPS_GNSS_OK_Resp,
 }MC20_ATcmd_enum;
 /**
  * @}

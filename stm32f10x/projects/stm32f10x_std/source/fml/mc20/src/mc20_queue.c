@@ -186,7 +186,7 @@ MC20_Queue_Core_t MC20_Queue_Core=
 
 
 
-void MC20_ATcmd_In_to_Queue(uint8_t AT_id) 
+void MC20_ATcmd_EnQueue(uint8_t AT_id) 
 {
     MC20_Queue_Core.Core_task[MC20_Queue_Core.In].cmd_id = AT_id;
     MC20_Queue_Core.In ++;
@@ -195,7 +195,7 @@ void MC20_ATcmd_In_to_Queue(uint8_t AT_id)
     MC20_Queue_Core.In %= MC20_Queue_Core.Size;
     MC20_Queue_Core.Count %= MC20_Queue_Core.Size;
 }
-uint8_t MC20_ATcmd_Out_From_Queue(void)
+uint8_t MC20_ATcmd_DeQueue(void)
 {
     uint8_t AT_id = 0;
     if (MC20_Queue_Core.Count > 0)

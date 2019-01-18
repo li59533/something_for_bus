@@ -63,8 +63,8 @@
  * @defgroup      mc20_queue_Exported_Functions 
  * @{  
  */
-void MC20_ATcmd_In_to_Queue(uint8_t AT_id) ;
-uint8_t MC20_ATcmd_Out_From_Queue(void);
+void MC20_ATcmd_EnQueue(uint8_t AT_id) ;
+uint8_t MC20_ATcmd_DeQueue(void);
 uint8_t MC20_ATcmd_Queue_Get_Count(void);
 
 void MC20_Msg_In_to_Queue(uint8_t *buf,uint16_t len);
