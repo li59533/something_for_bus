@@ -19,6 +19,7 @@
 #include "mc20_core_gprs.h"
 #include "mc20_parameter.h"
 #include "zsproto_tcpip.h"
+#include <time.h>
 /**
  * @addtogroup    XXX 
  * @{  
@@ -307,16 +308,35 @@ void MC20_Gps_Status_To_Be(uint8_t gps_status)
     MC20_Status.GPS_Status_Machine.status_machine = gps_status;
 }
 
+
+
 int8_t  MC20_Core_Gps_GNSS_Data_Analysis(int8_t * gnss_data_buf)
 {
     char * GNSS_effect_flag_addr = 0;
+    char * GNSS_offset_ptr = 0;
     char *ptr_temp;
     if(MC20_Core_GPS_DATA_CheckSum_XOR(gnss_data_buf,0) == CHECKSUM_XOR_PASS)
     {
-        GNSS_effect_flag_addr = strstr((const char *)gnss_data_buf , "A");
-        if (GNSS_effect_flag_addr > 0)
+        GNSS_offset_ptr = strstr((const char *)gnss_data_buf , ",") + 12;
+		
+        if (*(GNSS_offset_ptr)=='A')
         {
-            ptr_temp = strtok(GNSS_effect_flag_addr,",");
+            GNSS_offset_ptr = strstr((const char *)gnss_data_buf , ",") + 1;
+            if ((*(GNSS_offset_ptr)<'0')||(*(GNSS_offset_ptr)<'9'))
+            {
+                return DATA_ERROR;
+            }
+            GPS_GNSS_DATA.hour = (*GNSS_offset_ptr - '0')* 10 + (*(GNSS_offset_ptr + 1) - '0');
+            GPS_GNSS_DATA.min = (*(GNSS_offset_ptr + 2) - '0')* 10 + (*(GNSS_offset_ptr + 3) - '0');
+            GPS_GNSS_DATA.second = (*(GNSS_offset_ptr + 4) - '0') * 10 + (*(GNSS_offset_ptr + 5) - '0');
+
+            GNSS_offset_ptr = strstr((const char *)gnss_data_buf , ",,,") - 6;
+            GPS_GNSS_DATA.day =  (*(GNSS_offset_ptr) - '0') * 10 + (*(GNSS_offset_ptr + 1) - '0') ;
+            GPS_GNSS_DATA.mon =  (*(GNSS_offset_ptr + 2) - '0')*10 + (*(GNSS_offset_ptr + 3) - '0') - 1;
+            GPS_GNSS_DATA.year =  (*(GNSS_offset_ptr + 4) - '0') * 10 + (*(GNSS_offset_ptr + 5) - '0') + 100; //year - 1900;
+
+            GNSS_offset_ptr = strstr((const char *)gnss_data_buf , ",") + 12;
+            ptr_temp = strtok(GNSS_offset_ptr,",");
             strcpy(GPS_GNSS_DATA.postion_status,ptr_temp);
             ptr_temp = strtok(NULL,",");
             strcpy(GPS_GNSS_DATA.lattude_value, ptr_temp);
@@ -329,10 +349,13 @@ int8_t  MC20_Core_Gps_GNSS_Data_Analysis(int8_t * gnss_data_buf)
             ptr_temp = strtok(NULL,",");
             strcpy(GPS_GNSS_DATA.ground_rate, ptr_temp);
             ptr_temp = strtok(NULL,",");
-            strcpy(GPS_GNSS_DATA.ground_direction, ptr_temp);
-            return DATA_OK;
-            
+            strcpy(GPS_GNSS_DATA.ground_direction, ptr_temp);                        
         }
+        else if (*(GNSS_offset_ptr)=='V')
+        {
+            GPS_GNSS_DATA.postion_status[0] = 'V';
+        }
+
         else
         {
             INFO("GNSS_V\r\n");
@@ -344,6 +367,9 @@ int8_t  MC20_Core_Gps_GNSS_Data_Analysis(int8_t * gnss_data_buf)
         INFO("GPS_XOR:ERROR\r\n");
         return CHECKSUM_XOR_ERROR;
     }
+
+
+    return DATA_OK;
 }
 
 //checksum --XOR

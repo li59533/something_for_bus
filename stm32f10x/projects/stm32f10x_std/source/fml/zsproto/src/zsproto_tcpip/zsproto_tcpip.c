@@ -12,6 +12,7 @@
  */
 #include "zsproto_tcpip.h"
 #include "string.h"
+#include "mc20_parameter.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -153,9 +154,76 @@ int8_t * Zsproto_Make_Package_To_Server( uint32_t uniqueID,Zsproto_payload_t * Z
 
 void Zsproto_Data_Analysis(uint8_t *package,uint16_t package_len)
 {
-    uint8_t * ptr = package;
+    uint8_t * ptr = package + PROTO_OFFECT_CMD;
+    uint8_t next = 0;
+    if (*(package + package_len - 1) == 'S')
+    {
+        if (Zsproto_Data_Check(package, package_len) == 1)
+        {
+            switch (*(ptr))
+            {
+                case ZSCmd_StdScanReq:break;
+                case ZSCmd_StdConfigGetReq:break;
+                case ZSCmd_StdConfigSetReq:
+                {
+                    while ((*(ptr + 1)) -- )
+                    {
+                        switch (*(ptr + 2 + next))
+                        {
+                            case 20:    
+                            {
+                                g_MC20Parameter_Config.ip[0] = *(ptr + 2 + next + 2);
+                                g_MC20Parameter_Config.ip[1] = *(ptr + 2 + next + 3);
+                                g_MC20Parameter_Config.ip[2] = *(ptr + 2 + next + 4);
+                                g_MC20Parameter_Config.ip[3] = *(ptr + 2 + next + 5);                             
+                                break;
+                            }
+                            case 21:
+                            {
+                                g_MC20Parameter_Config.port = *(ptr + 2 + next + 2);
+                                break;
+                            }
+                            default:    break;
+                        }
+
+                        next += *(ptr + 2 + next + 1);
+                    }
+                    break;
+                }
+                default:break;
+            }
+        }
+
+    }
     
 }
+
+int8_t Zsproto_Data_Check(uint8_t * buf,uint16_t len)
+{
+    uint8_t * ptr = buf;
+    uint16_t buf_len = 0;
+    uint16_t i = 0;
+    uint8_t sum_check = 0;
+
+    buf_len = *(ptr + 1) * 16 + *(ptr + 2);
+
+    if (buf_len != len)
+    {
+        return -1;
+    }
+    ptr += PROTO_OFFECT_FCF;
+    for (i = 0;i < (len - 5);i ++)
+    {
+        sum_check += *(ptr + i);
+    }
+    ptr = buf;
+    if (sum_check != *(ptr + len - 2))
+    {
+        return -1;
+    }
+    return 1;
+}
+
 
 
 /**

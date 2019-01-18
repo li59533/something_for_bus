@@ -115,17 +115,6 @@ void MC20_Init(void)
 {
     MC20_Hal_Init();
 }
-void MC20_Core_Rev_Loop_Process(void)
-{
-    MC20_Status.GPRS_Status_Machine.status_Rev =1 ;
-
-    MC20Task_Send_Event(MC20_TASK_GPRS_EVENT);
-
-    MC20_Status.GPS_Status_Machine.status_Rev =1 ;
-    MC20Task_Send_Event(MC20_TASK_GPS_EVENT);
-}
-
-
 
 void MC20_Core_Run_Process(void)
 {
@@ -896,6 +885,7 @@ void MC20_Core_Run_Process(void)
                 {
                     send_msg_buf_addr = MC20_Send_Msg_Out_From_Queue(&send_msg_buf_len); 
                     MC20_Data_Send(send_msg_buf_addr,send_msg_buf_len);
+
                     mc20_core_status_to_be(MC20_IDLE);
                     MC20_Core_Gprs_RevStatus_To_Be(Rev_Pass);
                     DEBUG("--rev-QISEND-pass\r\n");
@@ -1266,7 +1256,7 @@ void MC20_GPS_GetLocation_Process(void)
 {
 
 }
-
+//设置GPRS流程返回状态为：rev_status
 void MC20_Core_Gprs_RevStatus_To_Be(uint8_t rev_status)
 {
     MC20_Status.GPRS_Status_Machine.status_Rev = rev_status;

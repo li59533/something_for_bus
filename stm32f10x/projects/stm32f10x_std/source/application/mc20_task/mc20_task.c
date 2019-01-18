@@ -16,6 +16,7 @@
 #include "mc20_app.h"
 #include "mc20_core_gprs.h"
 #include "mc20_core_gps.h"
+#include "zsproto_tcpip.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -136,6 +137,11 @@ osal_event_t MC20Task_Process(uint8_t taskid,osal_event_t events)
         OS_Timer_Start(taskid,MC20_TASK_CORE_RUN_LOOP,20);
         return events ^ MC20_TASK_CORE_RUN_LOOP;
     }    
+    if (events & MC20_TASK_ANALGSIS_PACKAGE_EVENT) 
+    {      
+        MC20_Server_Msg_Data_Analysis_Process();
+        return events ^ MC20_TASK_ANALGSIS_PACKAGE_EVENT;
+    }   
     return 0;
 }
 

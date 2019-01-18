@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        mc20_app.h
+ * @file        ODB_queue.h
  * @author
  * @version    v0.1.0
  * @date        
@@ -10,30 +10,21 @@
  *
  **************************************************************************************************
  */
-#ifndef _MC20_APP_H_
-#define _MC20_APP_H_
+#ifndef _ODB_QUEUE_H_
+#define _ODB_QUEUE_H_
 
 /**
  * @addtogroup    XXX 
  * @{ 
  */
-#include "self_def.h"
+
 /**
- * @addtogroup    mc20_app_Modules 
+ * @addtogroup    ODB_queue_Modules 
  * @{  
  */
 
 /**
- * @defgroup      mc20_app_Exported_Macros 
- * @{  
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup      mc20_app_Exported_Constants
+ * @defgroup      ODB_queue_Exported_Macros 
  * @{  
  */
 
@@ -42,7 +33,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Exported_Types 
+ * @defgroup      ODB_queue_Exported_Constants
  * @{  
  */
 
@@ -51,7 +42,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Exported_Variables 
+ * @defgroup      ODB_queue_Exported_Types 
  * @{  
  */
 
@@ -60,21 +51,18 @@
  */
 
 /**
- * @defgroup      mc20_app_Exported_Functions 
+ * @defgroup      ODB_queue_Exported_Variables 
  * @{  
  */
 
-void MC20_GPRS_Start(void);
-void MC20_GPRS_SendBytes(uint8_t * buf,uint16_t len);
-void MC20_GPRS_Refresh_CSQ(void);
-int8_t MC20_GPRS_Get_Link_Status(void);
-void MC20_GPRS_Set_RxCallBack();
-void MC20_GPRS_Get_Sent_CallBack();
-void MC20_GPRS_Set_ServerInfo(uint8_t * ip,uint16_t port);
+/**
+ * @}
+ */
 
-
-
-
+/**
+ * @defgroup      ODB_queue_Exported_Functions 
+ * @{  
+ */
 
 /**
  * @}

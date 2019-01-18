@@ -12,7 +12,7 @@
  */
 #ifndef _ODB_PORT_INIT_H_
 #define _ODB_PORT_INIT_H_
-
+#include "self_def.h"
 /**
  * @addtogroup    XXX 
  * @{ 
@@ -64,6 +64,10 @@
  * @{  
  */
 
+
+void ODB_Hal_Init(void);
+void ODB_Data_Send(uint8_t * buf);
+void ODB_CAN1_RX0_IRQHandler(void);
 /**
  * @}
  */

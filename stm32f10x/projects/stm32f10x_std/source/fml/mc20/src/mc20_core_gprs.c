@@ -15,6 +15,7 @@
 #include "mc20_core.h"
 #include "mc20_queue.h"
 #include "clog.h"
+#include "zsproto_tcpip.h"
 /**
  * @addtogroup    XXX 
  * @{  
@@ -60,7 +61,41 @@
  * @brief         
  * @{  
  */
-
+typedef struct
+{
+    uint8_t AT_cmd1_req;
+    uint8_t AT_cmd2_req;
+    uint8_t AT_cmd3_req;
+    uint8_t AT_cmd4_req;
+    uint8_t AT_cmd5_req;
+    uint8_t AT_cmd6_req;
+    uint8_t AT_cmd7_req;
+    uint8_t AT_cmd8_req;
+    uint8_t AT_cmd9_req;
+    uint8_t AT_cmd10_req;
+    uint8_t AT_cmd11_req;
+    uint8_t AT_cmd12_req;
+    uint8_t AT_cmd13_req;
+    uint8_t AT_cmd14_req;
+    uint8_t AT_cmd15_req;
+    uint8_t AT_cmd16_req;
+    uint8_t AT_cmd1_resp;
+    uint8_t AT_cmd2_resp;
+    uint8_t AT_cmd3_resp;
+    uint8_t AT_cmd4_resp;
+    uint8_t AT_cmd5_resp;
+    uint8_t AT_cmd6_resp;
+    uint8_t AT_cmd7_resp;
+    uint8_t AT_cmd8_resp;
+    uint8_t AT_cmd9_resp;
+    uint8_t AT_cmd10_resp;
+    uint8_t AT_cmd11_resp;
+    uint8_t AT_cmd12_resp;
+    uint8_t AT_cmd13_resp;
+    uint8_t AT_cmd14_resp;
+    uint8_t AT_cmd15_resp;
+    uint8_t AT_cmd16_resp;
+}MC20_GPRS_OrderStatus_t;
 /**
  * @}
  */
@@ -70,7 +105,41 @@
  * @brief         
  * @{  
  */
-
+MC20_GPRS_OrderStatus_t GPRS_Order_MactineStatus = 
+{
+    .AT_cmd1_resp = GPRS_CMD_CPIN_RESP,
+    .AT_cmd2_resp = GPRS_CMD_CSQ_RESP,
+    .AT_cmd3_resp = GPRS_CMD_CREG_RESP,
+    .AT_cmd4_resp = GPRS_CMD_CGREG_RESP,
+    .AT_cmd5_resp = GPRS_CMD_QIFGCNT_RESP,
+    .AT_cmd6_resp = GPRS_CMD_QICSGP_RESP,
+    .AT_cmd7_resp = GPRS_CMD_QIDEAT_RESP,
+    .AT_cmd8_resp = GPRS_CMD_QIMODE_RESP,
+    .AT_cmd9_resp = GPRS_CMD_QIMUX_RESP,
+    .AT_cmd10_resp = GPRS_CMD_QIREGAPP_RESP,
+    .AT_cmd11_resp = GPRS_CMD_QIACT_RESP,
+    .AT_cmd12_resp = GPRS_CMD_QILOCIP_RESP,
+    .AT_cmd13_resp = GPRS_CMD_QIDNSIP_IP_RESP,
+    .AT_cmd14_resp = GPRS_CMD_QIDNSIP_DOMAIN_RESP,
+    .AT_cmd15_resp = GPRS_CMD_QIHEAD_RESP,
+    .AT_cmd16_resp = GPRS_CMD_QIOPEN_RESP,
+    .AT_cmd1_req = GPRS_CMD_CPIN_REQ,    
+    .AT_cmd2_req = GPRS_CMD_CSQ_REQ,
+    .AT_cmd3_req = GPRS_CMD_CREG_REQ,
+    .AT_cmd4_req = GPRS_CMD_CGREG_REQ,
+    .AT_cmd5_req = GPRS_CMD_QIFGCNT_REQ,
+    .AT_cmd6_req = GPRS_CMD_QICSGP_REQ,
+    .AT_cmd7_req = GPRS_CMD_QIDEAT_REQ,
+    .AT_cmd8_req = GPRS_CMD_QIMODE_REQ,
+    .AT_cmd9_req = GPRS_CMD_QIMUX_REQ,
+    .AT_cmd10_req = GPRS_CMD_QIREGAPP_REQ,
+    .AT_cmd11_req = GPRS_CMD_QIACT_REQ,
+    .AT_cmd12_req = GPRS_CMD_QILOCIP_REQ,
+    .AT_cmd13_req = GPRS_CMD_QIDNSIP_IP_REQ,
+    .AT_cmd14_req = GPRS_CMD_QIDNSIP_DOMAIN_REQ,
+    .AT_cmd15_req = GPRS_CMD_QIHEAD_REQ,
+    .AT_cmd16_req = GPRS_CMD_QIOPEN_REQ,
+};
 /**
  * @}
  */
@@ -100,50 +169,38 @@
  * @brief         
  * @{  
  */
-void MC20_GPRS_Start_Process(void)
+
+void MC20_GPRS_Order(uint8_t GPRS_ATcmd,uint8_t AT_CMD_Rev)
 {
     static uint8_t rev_count = 0;
-    switch (MC20_Status.GPRS_Status_Machine.status_machine)
+    switch (GPRS_ATcmd)
     {
-        case MC20_CMD_AT:
+        case GPRS_Order_MactineStatus.AT_cmd1_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_AT);
-            MC20_Gprs_Status_To_Be(MC20_CMD_AT_Resp);
-            break;
-        }
-        case MC20_CMD_AT_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
                 case Rev_Pass:
-
-                    MC20_Gprs_Status_To_Be(MC20_CMD_ATE);
+                    MC20_ATcmd_In_to_Queue(GPRS_Order_MactineStatus.AT_cmd2_req);
                     rev_count = 0;
                     break;
                 case Rev_Timeout:
                     rev_count ++;
-                    rev_count<6?MC20_Gprs_Status_To_Be(MC20_CMD_AT):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
+                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_CMD_AT):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
                     
                     break;
                 case Rev_Error:
                     rev_count ++;
-                    rev_count<6?MC20_Gprs_Status_To_Be(MC20_CMD_AT):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
+                    rev_count<3?MC20_Gprs_Status_To_Be(MC20_CMD_AT):MC20_ATcmd_In_to_Queue(MC20_HAL_RESTART);
                     break;
                 default:break;
             }
             break;
         }
-        case MC20_CMD_ATE:
+        case GPRS_Order_MactineStatus.AT_cmd2_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_ATE);
-            MC20_Gprs_Status_To_Be(MC20_CMD_ATE_Resp);
-            break;
-        }
-        case MC20_CMD_ATE_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -163,15 +220,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_IPR:
+        case GPRS_Order_MactineStatus.AT_cmd3_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_IPR);
-            MC20_Gprs_Status_To_Be(MC20_CMD_IPR_Resp);
-            break;
-        }
-        case MC20_CMD_IPR_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -191,15 +242,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_CPIN:
+        case GPRS_Order_MactineStatus.AT_cmd4_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_CPIN);
-            MC20_Gprs_Status_To_Be(MC20_CMD_CPIN_Resp);
-            break;
-        }
-        case MC20_CMD_CPIN_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -220,15 +265,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_CSQ:
+        case GPRS_Order_MactineStatus.AT_cmd5_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_CSQ);
-            MC20_Gprs_Status_To_Be(MC20_CMD_CSQ_Resp);
-            break;
-        }
-        case MC20_CMD_CSQ_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -249,15 +288,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_CREG:
+        case GPRS_Order_MactineStatus.AT_cmd6_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_CREG);
-            MC20_Gprs_Status_To_Be(MC20_CMD_CREG_Resp);
-            break;
-        }
-        case MC20_CMD_CREG_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -277,15 +310,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIFGCNT:
+        case GPRS_Order_MactineStatus.AT_cmd7_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIFGCNT);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIFGCNT_Resp);
-            break;
-        }
-        case MC20_CMD_QIFGCNT_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -305,15 +332,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIDEACT:
+        case GPRS_Order_MactineStatus.AT_cmd8_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIDEACT);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIDEACT_Resp);
-            break;
-        }
-        case MC20_CMD_QIDEACT_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -333,15 +354,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIMODE:
+        case GPRS_Order_MactineStatus.AT_cmd9_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIMODE);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIMODE_Resp);
-            break;
-        }
-        case MC20_CMD_QIMODE_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -361,15 +376,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIMUX:
+        case GPRS_Order_MactineStatus.AT_cmd10_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIMUX);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIMUX_Resp);
-            break;
-        }
-        case MC20_CMD_QIMUX_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -389,15 +398,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIREGAPP:
+        case GPRS_Order_MactineStatus.AT_cmd11_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIREGAPP);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIREGAPP_Resp);
-            break;
-        }
-        case MC20_CMD_QIREGAPP_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -417,15 +420,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIACT:
+        case GPRS_Order_MactineStatus.AT_cmd12_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIACT);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIACT_Resp);
-            break;
-        }
-        case MC20_CMD_QIACT_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -445,15 +442,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QILOCIP:
+        case GPRS_Order_MactineStatus.AT_cmd13_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QILOCIP);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QILOCIP_Resp);
-            break;
-        }
-        case MC20_CMD_QILOCIP_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -473,15 +464,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIDNSIP_IP:
+        case GPRS_Order_MactineStatus.AT_cmd14_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIDNSIP_IP);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIDNSIP_IP_Resp);
-            break;
-        }
-        case MC20_CMD_QIDNSIP_IP_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -501,15 +486,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIHEAD:
+        case GPRS_Order_MactineStatus.AT_cmd15_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIHEAD);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIHEAD_Resp);
-            break;
-        }
-        case MC20_CMD_QIHEAD_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -529,15 +508,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QIOPEN:
+        case GPRS_Order_MactineStatus.AT_cmd16_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QIOPEN);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QIOPEN_Resp);
-            break;
-        }
-        case MC20_CMD_QIOPEN_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -558,15 +531,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QISEND:
+        case GPRS_Order_MactineStatus.AT_cmd17_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QISEND);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QISEND_Resp);
-            break;
-        }
-        case MC20_CMD_QISEND_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -586,15 +553,9 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_CMD_QISACK:
+        case GPRS_Order_MactineStatus.AT_cmd18_resp:
         {
-            MC20_ATcmd_In_to_Queue(MC20_CMD_QISACK);
-            MC20_Gprs_Status_To_Be(MC20_CMD_QISACK_Resp);
-            break;
-        }
-        case MC20_CMD_QISACK_Resp:
-        {
-            switch (MC20_Status.GPRS_Status_Machine.status_Rev)
+            switch (AT_CMD_Rev)
             {
                 case Rev_Wait:
                     break;
@@ -614,19 +575,18 @@ void MC20_GPRS_Start_Process(void)
             }
             break;
         }
-        case MC20_GPRS_CONNECT_ING:
-            break;
-        case MC20_GPRS_CONNECT_ING_Resp:
-            break;
         default:
-        {
+        {  
             rev_count = 0;
             MC20_Status.GPRS_Status_Machine.status_machine = MC20_CMD_AT;
         }
         break;
     }
 }
-void MC20_Gprs_Status_To_Be(uint8_t gprs_status)
+
+
+//ÉèÖÃGPRS×´Ì¬»úÎª£ºgprs_status
+void MC20_Gprs_Status_To_Be(uint8_t gprs_status) 
 {
     MC20_Core_Gprs_RevStatus_To_Be(Rev_Wait);
     MC20_Status.GPRS_Status_Machine.status_machine = gprs_status;
@@ -643,6 +603,14 @@ void MC20_Send_Data_To_Server(uint8_t * send_buf,uint16_t send_len)
 uint8_t MC20_Gprs_Status_Is(void)
 {
     return MC20_Status.GPRS_Status_Machine.status_machine ;
+}
+
+void MC20_Server_Msg_Data_Analysis_Process(void)
+{
+    uint8_t data_buf[200];
+    uint16_t data_len = 0;
+    MC20_Msg_Out_From_Queue(data_buf,&data_len);
+    Zsproto_Data_Analysis(data_buf,data_len);
 }
 
 

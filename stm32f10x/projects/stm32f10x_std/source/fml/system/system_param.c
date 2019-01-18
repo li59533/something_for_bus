@@ -187,7 +187,7 @@ void SystemParam_Apply(void)
     g_MC20Parameter_Config.ip[1] = 199;
     g_MC20Parameter_Config.ip[2] = 153;
     g_MC20Parameter_Config.ip[3] = 158;
-    g_MC20Parameter_Config.port = 35804;
+    g_MC20Parameter_Config.port = 39937;
 }
 
 

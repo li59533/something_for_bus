@@ -132,6 +132,12 @@ extern Zsproto_payload_t Zsproto_payload;
  */
 void Zsproto_Add_To_TLV(uint8_t target,uint8_t length,char * value);
 int8_t * Zsproto_Make_Package_To_Server( uint32_t uniqueID,Zsproto_payload_t * Zsproto_payload,int8_t * package,uint16_t *package_len);
+int8_t Zsproto_Data_Check(uint8_t * buf,uint16_t len);
+void Zsproto_Data_Analysis(uint8_t *package,uint16_t package_len);
+
+
+
+
 /**
  * @}
  */

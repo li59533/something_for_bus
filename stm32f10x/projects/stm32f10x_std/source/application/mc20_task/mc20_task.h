@@ -35,6 +35,7 @@
 #define MC20_TASK_GPS_EVENT                     0X0010
 #define MC20_TASK_BT_EVENT                      0X0020
 #define MC20_TASK_CORE_RUN_LOOP                 0x0040
+#define MC20_TASK_ANALGSIS_PACKAGE_EVENT        0x0080
 
 
 

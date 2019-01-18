@@ -29,6 +29,12 @@
  */
 typedef struct
 {
+    int hour;
+    int min;
+    int second;
+    int year;
+    int mon;
+    int day;
     char postion_status[2];
     char lattude_value[10];
     char lattude_hemisphere[2];

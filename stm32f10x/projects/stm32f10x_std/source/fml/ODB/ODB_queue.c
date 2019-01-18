@@ -1,6 +1,6 @@
 /**
  **************************************************************************************************
- * @file        mc20_app.c
+ * @file        ODB_queue.c
  * @author
  * @version   v0.1.0
  * @date        
@@ -10,24 +10,20 @@
  *
  **************************************************************************************************
  */
-#include "mc20_app.h"
-#include "mc20_port.h"
-#include "mc20_core.h"
-#include "mc20_task.h"
-#include "mc20_ATcmd.h"
-#include "mc20_queue.h"
+#include "ODB_queue.h"
+
 /**
  * @addtogroup    XXX 
  * @{  
  */
 
 /**
- * @addtogroup    mc20_app_Modules 
+ * @addtogroup    ODB_queue_Modules 
  * @{  
  */
 
 /**
- * @defgroup      mc20_app_IO_Defines 
+ * @defgroup      ODB_queue_IO_Defines 
  * @brief         
  * @{  
  */
@@ -37,7 +33,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Macros_Defines 
+ * @defgroup      ODB_queue_Macros_Defines 
  * @brief         
  * @{  
  */
@@ -47,7 +43,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Constants_Defines 
+ * @defgroup      ODB_queue_Constants_Defines 
  * @brief         
  * @{  
  */
@@ -57,7 +53,45 @@
  */
 
 /**
- * @defgroup      mc20_app_Private_Types
+ * @defgroup      ODB_queue_Private_Types
+ * @brief         
+ * @{  
+ */
+typedef struct
+{
+    uint8_t MsgBuf[8];
+    uint8_t MsgBuf_Len;
+}ODB_Msg_t;
+
+typedef struct  
+{
+    MC20_Msg_t * Msgptr;
+    uint8_t  In;
+    uint8_t Out;
+    uint8_t Size;
+    uint8_t Count;
+}ODB_Queue_MSG_t;
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      ODB_queue_Private_Variables 
+ * @brief         
+ * @{  
+ */
+ODB_Msg_t ODB_R[5];
+ODB_Msg_t ODB_T[5];
+
+
+
+ODB_Queue_MSG_t ODB_Queue_MSG_R;
+/**
+ * @}
+ */
+
+/**
+ * @defgroup      ODB_queue_Public_Variables 
  * @brief         
  * @{  
  */
@@ -67,7 +101,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Private_Variables 
+ * @defgroup      ODB_queue_Private_FunctionPrototypes 
  * @brief         
  * @{  
  */
@@ -77,27 +111,7 @@
  */
 
 /**
- * @defgroup      mc20_app_Public_Variables 
- * @brief         
- * @{  
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup      mc20_app_Private_FunctionPrototypes 
- * @brief         
- * @{  
- */
-
-/**
- * @}
- */
-
-/**
- * @defgroup      mc20_app_Functions 
+ * @defgroup      ODB_queue_Functions 
  * @brief         
  * @{  
  */

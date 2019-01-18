@@ -624,6 +624,8 @@
                     </Folder>
                     <F N="../source/fml/ODB/ODB_Init.c"/>
                     <F N="../source/fml/ODB/ODB_Init.h"/>
+                    <F N="../source/fml/ODB/ODB_queue.c"/>
+                    <F N="../source/fml/ODB/ODB_queue.h"/>
                 </Folder>
                 <Folder Name="system">
                     <F N="../source/fml/system/system_info.c"/>
