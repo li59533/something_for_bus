@@ -71,28 +71,12 @@ typedef enum
 
 typedef struct
 {
-	uint8_t status_machine;
-	uint8_t status_Rev;
-}Status_Mactine_GPRS_t;
+    uint8_t ip[4];
+    uint16_t port;
+    int8_t * domian;
+    int8_t  QIDNSIP_value;
+}MC20_Core_Moduleconf_t;
 
-typedef struct
-{
-	uint8_t status_machine;
-	uint8_t status_Rev;
-}Status_Mactine_GPS_t;
-
-typedef struct
-{
-	uint8_t status_machine;
-	uint8_t status_Rev;
-}Status_Mactine_CORE_t;
-
-typedef struct
-{
-	Status_Mactine_GPRS_t GPRS_Status_Machine;
-	Status_Mactine_GPS_t GPS_Status_Machine;
-    Status_Mactine_CORE_t CORE_Status_Machine;
-}MC20_Status_t;
 /**
  * @}
  */
@@ -101,7 +85,7 @@ typedef struct
  * @defgroup      mc20_core_Exported_Variables 
  * @{  
  */
-extern MC20_Status_t MC20_Status;
+
 /**
  * @}
  */
@@ -113,13 +97,11 @@ extern MC20_Status_t MC20_Status;
 
 
 void MC20_Init(void);
-void MC20_Core_Run_Process(void);
-void MC20_Core_Rev_Loop_Process(void);
+void MC20_Core_Loop(void);
 
-void MC20_GPS_GetLocation_Process(void);
+void MC20_Core_Func_Control(uint8_t gprs_control,uint8_t gps_control,uint8_t bt_control);
 
-void MC20_Core_Gprs_RevStatus_To_Be(uint8_t rev_status);
-
+void MC20_Core_Gprsconf_Init(MC20_Core_Moduleconf_t * conf);
 /**
  * @}
  */

@@ -18,6 +18,7 @@
  * @{ 
  */
 #include "self_def.h"
+#include "mc20_core.h"
 /**
  * @addtogroup    mc20_app_Modules 
  * @{  
@@ -64,18 +65,12 @@
  * @{  
  */
 
-void MC20_GPRS_Start(void);
+void MC20_GPRS_Start(MC20_Core_Moduleconf_t * conf);
 void MC20_GPRS_SendBytes(uint8_t * buf,uint16_t len);
 void MC20_GPRS_Refresh_CSQ(void);
 int8_t MC20_GPRS_Get_Link_Status(void);
 void MC20_GPRS_Set_RxCallBack();
 void MC20_GPRS_Get_Sent_CallBack();
-void MC20_GPRS_Set_ServerInfo(uint8_t * ip,uint16_t port);
-
-
-
-
-
 /**
  * @}
  */

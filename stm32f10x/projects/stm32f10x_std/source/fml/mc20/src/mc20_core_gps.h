@@ -70,7 +70,7 @@ typedef struct
  * @defgroup      mc20_core_gps_Exported_Variables 
  * @{  
  */
-extern GPS_GNSS_DATA_t GPS_GNSS_DATA;
+
 /**
  * @}
  */

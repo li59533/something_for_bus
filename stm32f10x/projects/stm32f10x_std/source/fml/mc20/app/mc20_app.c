@@ -101,7 +101,11 @@
  * @brief         
  * @{  
  */
-
+void MC20_GPRS_Start(MC20_Core_Moduleconf_t * conf)
+{
+    MC20_ATcmd_EnQueue(GPRS_CMD_CPIN_RESP);
+    MC20_Core_Gprsconf_Init(conf);
+}
 /**
  * @}
  */

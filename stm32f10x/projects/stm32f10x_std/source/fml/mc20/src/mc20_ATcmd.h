@@ -29,7 +29,7 @@
  */
 typedef enum
 {
-    MC20_IDLE  =0,
+    MC20_IDLE  =1,
 //---------mc20_device--------
     MC20_CMD_AT_REQ,
     MC20_CMD_AT_RESP,
@@ -45,7 +45,7 @@ typedef enum
 
 //---------mc20_GPRS----------
 
-    GPRS_CMD_CPIN_REQ,
+    GPRS_CMD_CPIN_REQ = 50,
     GPRS_CMD_CPIN_RESP,
     GPRS_CMD_CSQ_REQ,
     GPRS_CMD_CSQ_RESP,
@@ -79,7 +79,9 @@ typedef enum
     GPRS_CMD_QIOPEN_RESP,
     GPRS_CMD_QISACT_REQ,
     GPRS_CMD_QISACT_RESP,
+    GPRS_LINK_OK,
 //-------------------------------
+
 
 }MC20_ATcmd_enum;
 /**

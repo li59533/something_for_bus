@@ -105,6 +105,7 @@
 
 void App_Run_Loop(void)
 {
+	/*
     uint16_t package_len = 0;
     if (GPS_GNSS_DATA.postion_status[0] == 'A' && GPS_GNSS_DATA.postion_status[1]==0)
     {
@@ -122,6 +123,7 @@ void App_Run_Loop(void)
     {
         INFO("the GNSS DATA is invalid\r\n");
     }
+	*/
 }
 
 
